@@ -1,0 +1,78 @@
+aid: kissmetrics
+name: Kissmetrics
+description: >-
+  Kissmetrics is a product and behavioral analytics platform that tracks
+  individual user activity across web and mobile, surfacing funnels, cohorts,
+  retention, and revenue reports tied to identified people. The platform helps
+  product, marketing, and growth teams understand user journeys and pinpoint
+  conversion drop-off. Kissmetrics provides REST APIs for querying reports,
+  exporting segments, and ingesting events, authenticated via HTTP Basic auth.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Analytics
+  - Product Analytics
+  - Behavioral Analytics
+  - Marketing Analytics
+  - Funnels
+  - Cohorts
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/kissmetrics/refs/heads/main/apis.yml
+created: '2026-05-11'
+modified: '2026-05-11'
+specificationVersion: '0.19'
+apis:
+  - aid: kissmetrics:rest-api
+    name: Kissmetrics REST API
+    description: >-
+      REST API for programmatic access to Kissmetrics reports, segments,
+      events, properties, and account metadata. Used to pull report data into
+      dashboards, spreadsheets, and BI tools, and to export user segments to
+      destinations without native integrations. Authentication uses HTTP Basic
+      auth with credentials passed in the Authorization header.
+    humanURL: https://support.kissmetrics.io/reference/overview-1
+    baseURL: https://query.kissmetrics.com/v3
+    tags:
+      - Analytics
+      - Reports
+      - Segments
+      - Data Export
+    properties:
+      - type: Documentation
+        url: https://support.kissmetrics.io/reference/overview-1
+      - type: Authorization
+        url: https://support.kissmetrics.io/reference/authorization
+      - type: API Specifications
+        url: https://support.kissmetrics.io/reference/api-specifications-1
+      - type: URL API
+        url: https://support.kissmetrics.io/reference/url-api
+  - aid: kissmetrics:data-out-api
+    name: Kissmetrics Data Out API
+    description: >-
+      Legacy Data Out API for exporting raw Kissmetrics data. Documented in
+      the older support portal alongside the current v3 REST API.
+    humanURL: https://oldsupport.kissmetrics.com/apis/data-out.html
+    baseURL: https://api.kissmetrics.com
+    tags:
+      - Analytics
+      - Data Export
+    properties:
+      - type: Documentation
+        url: https://oldsupport.kissmetrics.com/apis/data-out.html
+
+common:
+  - type: Website
+    url: https://www.kissmetrics.io
+  - type: Documentation
+    url: https://support.kissmetrics.io
+  - type: Product Page
+    url: https://www.kissmetrics.io/product/workflows/api
+  - type: GitHub Organization
+    url: https://github.com/kissmetrics
+  - type: Sign Up
+    url: https://www.kissmetrics.io/signup
+  - type: Support
+    url: https://support.kissmetrics.io
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
