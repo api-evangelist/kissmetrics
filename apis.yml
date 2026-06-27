@@ -71,11 +71,11 @@ common:
     url: https://www.kissmetrics.io/product/workflows/api
   - type: GitHubOrganization
     url: https://github.com/kissmetrics
-  - type: SignUp
+  - type: Signup
     url: https://www.kissmetrics.io/signup
   - type: Support
     url: https://support.kissmetrics.io
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://kissmetrics.io/llms.txt
 maintainers:
   - FN: Kin Lane
