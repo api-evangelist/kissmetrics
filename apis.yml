@@ -61,6 +61,8 @@ apis:
         url: https://oldsupport.kissmetrics.com/apis/data-out.html
 
 common:
+  - type: DomainSecurity
+    url: security/kissmetrics-domain-security.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/kissmetrics
   - type: Website
@@ -77,6 +79,8 @@ common:
     url: https://support.kissmetrics.io
   - type: LlmsText
     url: https://kissmetrics.io/llms.txt
+  - url: https://www.kissmetrics.io/feed.xml
+    type: Blog
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
