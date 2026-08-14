@@ -1,97 +1,218 @@
 aid: kissmetrics
 name: Kissmetrics
 description: >-
-  Kissmetrics is a product and behavioral analytics platform that tracks
-  individual user activity across web and mobile, surfacing funnels, cohorts,
-  retention, and revenue reports tied to identified people. The platform helps
-  product, marketing, and growth teams understand user journeys and pinpoint
-  conversion drop-off. Kissmetrics provides REST APIs for querying reports,
-  exporting segments, and ingesting events, authenticated via HTTP Basic auth.
+  Kissmetrics is a product and behavioral analytics platform that tracks individual people
+  across web and mobile rather than sessions, resolving every event to a persistent identity
+  and surfacing funnels, cohorts, retention, paths, revenue and A/B test reports against that
+  person-level history. Product, marketing and growth teams use it to understand user journeys
+  and pinpoint conversion drop-off, and it now markets an LLM Acquisition report that measures
+  human traffic arriving from AI assistants. Two programmable surfaces are published: a
+  Basic-auth REST Query API at query.kissmetrics.io/v3 for getting data out — account metadata,
+  asynchronous ad-hoc and saved queries, SQL, and CSV/S3 exports — and a query-string tracking
+  beacon at trk.kissmetrics.io for getting events in, alongside first-party Ruby, PHP, Python,
+  iOS and Android libraries and a hosted JavaScript snippet.
 type: Index
 accessModel:
-  pricing: unknown
-  onboarding: unknown
-  trial: false
-  try_now: false
-  public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
+  pricing: public
+  onboarding: self-service
+  trial: true
+  try_now: true
+  public: true
+  label: Public free tier
+  confidence: high
+  source:
+    - https://kissmetrics.io/pricing
+    - https://ai.kissmetrics.io/get-started
+  generated: '2026-08-13'
+  method: searched
+  note: >-
+    Free workspace to 100,000 events/month with no card, and Kissmetrics states the entire CLI
+    and API are free with no paywall. Paid tiers start at $99/month.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kissmetrics.png
 tags:
   - Analytics
   - Product Analytics
   - Behavioral Analytics
   - Marketing Analytics
+  - Customer Analytics
+  - Event Tracking
   - Funnels
   - Cohorts
+  - Retention
+  - Attribution
+  - Data Export
 url: >-
   https://raw.githubusercontent.com/api-evangelist/kissmetrics/refs/heads/main/apis.yml
 created: '2026-05-11'
-modified: '2026-05-11'
+modified: '2026-08-13'
 specificationVersion: '0.19'
 apis:
   - aid: kissmetrics:rest-api
     name: Kissmetrics REST API
     description: >-
-      REST API for programmatic access to Kissmetrics reports, segments,
-      events, properties, and account metadata. Used to pull report data into
-      dashboards, spreadsheets, and BI tools, and to export user segments to
-      destinations without native integrations. Authentication uses HTTP Basic
-      auth with credentials passed in the Authorization header.
+      REST API for programmatic access to Kissmetrics reports, segments, events, properties and
+      account metadata. Queries are asynchronous: a POST to /queries, /queries/report or
+      /queries/metric returns a query id which is polled at /queries/{id} and cancelled with a
+      DELETE, and results are materialized through /exports to CSV or a customer S3 bucket. Nine
+      query types are published, including cohort, funnel, ab_test, people_search and raw sql.
+      Used to pull report data into dashboards, spreadsheets and BI tools, and to export user
+      segments to destinations without native integrations. Authentication is HTTP Basic in the
+      Authorization header. The API is self-declared beta and rate limited to 15 requests per
+      minute.
     humanURL: https://support.kissmetrics.io/reference/overview-1
-    baseURL: https://query.kissmetrics.com/v3
+    baseURL: https://query.kissmetrics.io/v3
     tags:
       - Analytics
       - Reports
       - Segments
       - Data Export
+      - SQL
     properties:
       - type: Documentation
         url: https://support.kissmetrics.io/reference/overview-1
+      - type: APIReference
+        url: https://support.kissmetrics.io/reference
       - type: Authorization
         url: https://support.kissmetrics.io/reference/authorization
       - type: API Specifications
         url: https://support.kissmetrics.io/reference/api-specifications-1
       - type: URL API
         url: https://support.kissmetrics.io/reference/url-api
-  - aid: kissmetrics:data-out-api
-    name: Kissmetrics Data Out API
+      - type: OpenAPI
+        url: openapi/kissmetrics-products-api-openapi.yml
+      - type: OpenAPI
+        url: openapi/kissmetrics-queries-api-openapi.yml
+      - type: OpenAPI
+        url: openapi/kissmetrics-exports-api-openapi.yml
+      - type: Overlay
+        url: overlays/kissmetrics-products-overlay.yaml
+      - type: Overlay
+        url: overlays/kissmetrics-queries-overlay.yaml
+      - type: Overlay
+        url: overlays/kissmetrics-exports-overlay.yaml
+      - type: Authentication
+        url: authentication/kissmetrics-authentication.yml
+      - type: Conventions
+        url: conventions/kissmetrics-conventions.yml
+      - type: ErrorCatalog
+        url: errors/kissmetrics-problem-types.yml
+      - type: DataModel
+        url: data-model/kissmetrics-data-model.yml
+      - type: Examples
+        url: examples/kissmetrics-rest-api-examples.yml
+      - type: RateLimits
+        url: rate-limits/kissmetrics-rate-limits.yml
+      - type: Lifecycle
+        url: lifecycle/kissmetrics-lifecycle.yml
+  - aid: kissmetrics:tracking-api
+    name: Kissmetrics Tracking API (Beacon)
     description: >-
-      Legacy Data Out API for exporting raw Kissmetrics data. Documented in
-      the older support portal alongside the current v3 REST API.
-    humanURL: https://oldsupport.kissmetrics.com/apis/data-out.html
-    baseURL: https://api.kissmetrics.com
+      Event ingest surface. Three query-string endpoints record an event (/e), set person
+      properties (/s) and irreversibly alias two identities to one person (/a), accepting GET or
+      POST with the product key in `_k`, the person identity in `_p` and arbitrary additional
+      keys as person properties. It powers the hosted JavaScript snippet, the first-party Ruby,
+      PHP, Python, iOS and Android libraries, and the 1x1 pixel beacon used for email and ad
+      impression tracking. By design it answers 200 OK with a 1x1 GIF to every request, valid or
+      not, so a 200 is not evidence an event was accepted. This entry replaces the former
+      Kissmetrics Data Out API entry, whose only documentation host,
+      oldsupport.kissmetrics.com, no longer resolves (probed 2026-08-13).
+    humanURL: https://support.kissmetrics.io/reference/api-specifications-1
+    baseURL: https://trk.kissmetrics.io
     tags:
       - Analytics
-      - Data Export
+      - Event Tracking
+      - Data Ingest
+      - Identity Resolution
     properties:
       - type: Documentation
-        url: https://oldsupport.kissmetrics.com/apis/data-out.html
+        url: https://support.kissmetrics.io/reference/api-specifications-1
+      - type: Beacon API
+        url: https://support.kissmetrics.io/reference/beacon-api-1
+      - type: GettingStarted
+        url: https://support.kissmetrics.io/docs/installing-the-javascript-library-quickstart
+      - type: AgentSkill
+        url: skills/kissmetrics-km-installer.md
+      - type: SDKs
+        url: packages/kissmetrics-packages.yml
 
 common:
+  - type: AgenticAccess
+    url: agentic-access/kissmetrics-agentic-access.yml
+  - type: Authentication
+    url: authentication/kissmetrics-authentication.yml
   - type: DomainSecurity
     url: security/kissmetrics-domain-security.yml
+  - type: Conventions
+    url: conventions/kissmetrics-conventions.yml
+  - type: Conformance
+    url: conformance/kissmetrics-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/kissmetrics-lifecycle.yml
+  - type: ErrorCatalog
+    url: errors/kissmetrics-problem-types.yml
+  - type: DataModel
+    url: data-model/kissmetrics-data-model.yml
+  - type: Examples
+    url: examples/kissmetrics-rest-api-examples.yml
+  - type: RateLimits
+    url: rate-limits/kissmetrics-rate-limits.yml
+  - type: Plans
+    url: plans/kissmetrics-plans-pricing.yml
+  - type: Packages
+    url: packages/kissmetrics-packages.yml
+  - type: SDKs
+    url: packages/kissmetrics-packages.yml
+  - type: MCPServer
+    url: mcp/kissmetrics-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/kissmetrics-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: LLMsTxt
+    url: llms/kissmetrics-llms.txt
   - type: LinkedIn
     url: https://www.linkedin.com/company/kissmetrics
   - type: Website
     url: https://www.kissmetrics.io
-  - type: Documentation
+  - type: DeveloperPortal
     url: https://support.kissmetrics.io
+  - type: Documentation
+    url: https://support.kissmetrics.io/docs
+  - type: APIReference
+    url: https://support.kissmetrics.io/reference
+  - type: GettingStarted
+    url: https://support.kissmetrics.io/docs/installing-the-javascript-library-quickstart
   - type: Product Page
     url: https://www.kissmetrics.io/product/workflows/api
   - type: GitHubOrganization
     url: https://github.com/kissmetrics
+  - type: Roadmap
+    url: https://kissmetrics.io/updates
+  - type: Pricing
+    url: https://www.kissmetrics.io/pricing
+  - type: SignUp
+    url: https://ai.kissmetrics.io/get-started
+  - type: Login
+    url: https://ai.kissmetrics.io/login
+  - type: TermsOfService
+    url: https://www.kissmetrics.io/terms
+  - type: PrivacyPolicy
+    url: https://www.kissmetrics.io/privacy
   - type: Signup
     url: https://www.kissmetrics.io/signup
   - type: Support
     url: https://support.kissmetrics.io
   - type: LlmsText
     url: https://kissmetrics.io/llms.txt
+  - type: Blog
+    url: https://www.kissmetrics.io/blog
   - url: https://www.kissmetrics.io/feed.xml
-    type: Blog
+    type: BlogRSS
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 42
+  pass: local-v1
