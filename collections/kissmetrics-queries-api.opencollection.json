@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kissmetrics REST API — queries",
+    "version": "3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "queries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Run a Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://query.kissmetrics.io/v3/queries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Start a query. Kissmetrics publishes one request body per query type on its own reference page, all against `POST /queries`; the accepted bodies are merged here as `oneOf`."
+        },
+        {
+          "info": {
+            "name": "Saved Report Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://query.kissmetrics.io/v3/queries/report",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run the query associated with a saved report."
+        },
+        {
+          "info": {
+            "name": "Saved Metric Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://query.kissmetrics.io/v3/queries/metric",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run the query associated with a saved metric."
+        },
+        {
+          "info": {
+            "name": "Query Results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://query.kissmetrics.io/v3/queries/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Query ID"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the status and results of a query that has been started."
+        },
+        {
+          "info": {
+            "name": "Cancel a Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://query.kissmetrics.io/v3/queries/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Query ID"
+              }
+            ]
+          },
+          "docs": "Cancel a query that has been previously started."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

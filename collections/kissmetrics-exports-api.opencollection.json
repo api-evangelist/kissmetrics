@@ -1,0 +1,58 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kissmetrics REST API — exports",
+    "version": "3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an Export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://query.kissmetrics.io/v3/exports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create an export of a completed query result. Kissmetrics publishes one request body per export target (CSV, S3) on its own reference page, all against `POST /exports`; the accepted bodies are merged here as `oneOf`."
+        },
+        {
+          "info": {
+            "name": "Export Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://query.kissmetrics.io/v3/exports/:export_id",
+            "params": [
+              {
+                "name": "export_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "This endpoint provides information on the status of active exports and also provides the link to the CSV for completed CSV exports. This endpoint requires the export ID obtained from exporting a query."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

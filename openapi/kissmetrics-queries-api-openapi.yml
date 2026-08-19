@@ -1,0 +1,465 @@
+openapi: 3.1.0
+info:
+  title: Kissmetrics REST API — queries
+  version: '3'
+  description: 'Query endpoints: start an ad-hoc, saved-report, saved-metric, A/B test, people-search,
+    people-count or SQL query, poll its results, and cancel it.
+
+
+    Assembled verbatim from the per-operation OpenAPI 3.1.0 documents Kissmetrics publishes on each reference
+    page of support.kissmetrics.io (the `.md` twin of every endpoint page carries a complete `# OpenAPI
+    definition` block). Nothing was authored by API Evangelist; operations were grouped by resource and
+    identical path+method variants merged as `oneOf`.'
+  contact:
+    name: Kissmetrics Support
+    url: https://support.kissmetrics.io/reference/overview-1
+servers:
+- url: https://query.kissmetrics.io/v3
+  description: Kissmetrics Query API v3
+tags:
+- name: queries
+  description: 'Query endpoints: start an ad-hoc, saved-report, saved-metric, A/B test, people-search,
+    people-count or SQL query, poll its results, and cancel it.'
+security:
+- basicAuth: []
+paths:
+  /queries:
+    post:
+      summary: Run a Query
+      description: Start a query. Kissmetrics publishes one request body per query type on its own reference
+        page, all against `POST /queries`; the accepted bodies are merged here as `oneOf`.
+      operationId: run-query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+              - type: object
+                required:
+                - product_id
+                - query_params
+                properties:
+                  product_id:
+                    type: integer
+                    description: The unique identifier of the product to query.
+                    format: int32
+                  query_type:
+                    type: string
+                    description: The type of query to run. *Default query type is pulled from the given
+                      report. See [Query Types](#query-types) for a list.
+                  query_params:
+                    type: string
+                    description: The object that outlines all of the ad-hoc query's conditions. See [Query
+                      Params](##people-search-group-query) for details and examples.
+                    format: json
+                  sort:
+                    type: string
+                    description: The field to sort the results by.
+                  order:
+                    type: string
+                    description: The sort order if `sort` parameter is provided. One of `asc` or `desc`.
+                    default: asc
+                title: Ad-hoc Query
+                description: Run a custom query that is not associated with a report or metric.
+              - type: object
+                required:
+                - product_id
+                - query_type
+                properties:
+                  product_id:
+                    type: string
+                    description: The unique identifier of the product to query.
+                  query_type:
+                    type: string
+                    description: The type of query to run, in this case it's `ab_test`.
+                  sort:
+                    type: string
+                    description: The field to sort the results by.
+                  order:
+                    type: string
+                    description: The sort order if sort parameter is provided. One of `asc` or `desc`.
+                  query_params:
+                    properties:
+                      variation_property_index:
+                        type: integer
+                        description: The index of the property that contains the variation of the experiment.
+                        format: int32
+                      conversion_event_index:
+                        type: integer
+                        description: The index of the conversion event that should be compared between
+                          variations.
+                        format: int32
+                      start_date:
+                        type: string
+                        description: The start date of the experiment.
+                        format: date-time
+                      end_date:
+                        type: string
+                        description: The end date of the experiment.
+                        format: date-time
+                      bucket_size:
+                        type: integer
+                        description: The time range for each bucket - measured in seconds. (E.G.; `604800`)
+                        format: int32
+                    required:
+                    - variation_property_index
+                    - conversion_event_index
+                    - start_date
+                    - bucket_size
+                    type: object
+                    description: The A/B Test query parameters.
+                title: A/B Test Queries
+                description: A/B Test Queries
+              - type: object
+                required:
+                - product_id
+                - query_type
+                properties:
+                  product_id:
+                    type: integer
+                    description: The unique identifier of the product to query.
+                    format: int32
+                  query_type:
+                    type: string
+                    description: The type of query to run, in this case it's people_search.
+                  sort:
+                    type: string
+                    description: The field to sort the results by
+                  order:
+                    type: string
+                    description: string The sort order if sort parameter is provided. One of `asc` or
+                      `desc`.
+                  query_params:
+                    properties:
+                      type:
+                        type: string
+                        description: The type of people search to run, in this case `group`.
+                      filter:
+                        type: string
+                        description: The [Filter](#event-filters) to apply to the query.
+                        format: json
+                      calculations:
+                        type: string
+                        description: Array of [Calculation Objects](#result-columnscalculations).
+                        format: json
+                    required:
+                    - type
+                    - filter
+                    type: object
+                title: People Search (Group) Query
+                description: People Search (Group) Query
+              - type: object
+                required:
+                - product_id
+                - query_type
+                properties:
+                  product_id:
+                    type: integer
+                    description: The unique identifier of the product to query.
+                    format: int32
+                  query_type:
+                    type: string
+                    description: The type of query to run, in this case it's `people_search`.
+                  sort:
+                    type: string
+                    description: The field to sort the results by.
+                  order:
+                    type: string
+                    description: The sort order if sort parameter is provided. One of `asc` or `desc`.
+                  query_params:
+                    properties:
+                      type:
+                        type: string
+                        description: The type of people search to run, in this case `identity`.
+                      identity:
+                        type: string
+                        description: The ID of the person to query.
+                      calculations:
+                        type: string
+                        description: Array of [Calculation Objects](#result-columnscalculations)
+                        format: json
+                    required:
+                    - type
+                    - identity
+                    - calculations
+                    type: object
+                title: People Search (Identity) Query
+                description: People Search (Identity) Query
+              - type: object
+                required:
+                - product_id
+                - query_type
+                properties:
+                  product_id:
+                    type: integer
+                    format: int32
+                  query_type:
+                    type: string
+                  sort:
+                    type: string
+                  order:
+                    type: string
+                  query_params:
+                    properties:
+                      conditions:
+                        type: string
+                        description: Array of [Event With Property Filters](#event-with-property-filters).
+                        format: json
+                      segments:
+                        type: string
+                        description: Array of Segments.
+                        format: json
+                    required: []
+                    type: object
+                title: People Count Query
+                description: Returns the total number of people that fall into a people search.
+              - type: object
+                required:
+                - product_id
+                properties:
+                  product_id:
+                    type: integer
+                    format: int32
+                  query_type:
+                    type: string
+                    description: 'default: `sql`'
+                  query_params:
+                    properties:
+                      statement:
+                        type: string
+                        format: json
+                    required:
+                    - statement
+                    type: object
+                title: SQL
+                description: SQL
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 279139f5-f0e7-4f1c-bae5-ff509489981d
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      x-published-variants:
+      - operationId: ad-hoc-query
+        summary: Ad-hoc Query
+        docs: https://support.kissmetrics.io/reference/ad-hoc-query
+      - operationId: ab-test-queries
+        summary: A/B Test Queries
+        docs: https://support.kissmetrics.io/reference/ab-test-queries
+      - operationId: people-search-group-query
+        summary: People Search (Group) Query
+        docs: https://support.kissmetrics.io/reference/people-search-group-query
+      - operationId: people-search-identity-query
+        summary: People Search (Identity) Query
+        docs: https://support.kissmetrics.io/reference/people-search-identity-query
+      - operationId: people-count-query
+        summary: People Count Query
+        docs: https://support.kissmetrics.io/reference/people-count-query
+      - operationId: sql
+        summary: SQL
+        docs: https://support.kissmetrics.io/reference/sql
+      x-source: https://support.kissmetrics.io/reference/ad-hoc-query
+      tags:
+      - queries
+  /queries/report:
+    post:
+      summary: Saved Report Query
+      description: Run the query associated with a saved report.
+      operationId: v3queriesreport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - report_id
+              properties:
+                report_id:
+                  type: integer
+                  description: The unique identifier of the report to run
+                  format: int32
+                date_range:
+                  type: string
+                  description: 'The timeframe for which to run the query. *The `date_range` parameter
+                    is required for all query types except `people_search`. See [Date Range Object](#modern-periods)
+                    for examples. IMPORTANT - COPY THE BELOW OBJECT INTO THE FIELD AND ADD the date_range
+                    parameter. { "type": "preset", "preset": "this_month_to_date" }'
+                  format: json
+                query_type:
+                  type: string
+                  description: The type of query to run. *Default query type is pulled from the given
+                    report. See [Query Types)](#query-types) for a list.
+                sort:
+                  type: string
+                  description: The field to sort the results by.
+                order:
+                  type: string
+                  description: The sort order if `sort` parameter is provided. One of `asc` or `desc`.
+                  default: asc
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 279139f5-f0e7-4f1c-bae5-ff509489981d
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/v3queriesreport
+      tags:
+      - queries
+  /queries/metric:
+    post:
+      summary: Saved Metric Query
+      description: Run the query associated with a saved metric.
+      operationId: saved-metric-query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - metric_id
+              properties:
+                metric_id:
+                  type: integer
+                  description: The unique identifier of the metric to run
+                  format: int32
+                date_range:
+                  type: string
+                  description: 'The timeframe for which to run the query. *The `date_range` parameter
+                    is required for all query types except `people_search`. See [Date Range Object](#date-range-object)
+                    for examples.  IMPORTANT - COPY THE BELOW OBJECT INTO THE FIELD AND ADD the `date_range`
+                    parameter. { "type": "preset", "preset": "this_month_to_date" }'
+                  format: json
+                query_type:
+                  type: string
+                  description: The type of query to run. *Default query type is pulled from the given
+                    report. See [Query Types)](#v3queriesreport) for a list.
+                sort:
+                  type: string
+                  description: The field to sort the results by.
+                order:
+                  type: string
+                  description: The sort order if `sort` parameter is provided. One of `asc` or `desc`.
+                  default: asc
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\"\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 279139f5-f0e7-4f1c-bae5-ff509489981d
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/saved-metric-query
+      tags:
+      - queries
+  /queries/{id}:
+    get:
+      summary: Query Results
+      description: Get the status and results of a query that has been started.
+      operationId: v3queriesid
+      parameters:
+      - name: id
+        in: path
+        description: Query ID
+        schema:
+          type: string
+        required: true
+      - name: sort
+        in: query
+        schema:
+          type: string
+      - name: order
+        in: query
+        schema:
+          type: string
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/v3queriesid
+      tags:
+      - queries
+    delete:
+      summary: Cancel a Query
+      description: Cancel a query that has been previously started.
+      operationId: cancel-a-query
+      parameters:
+      - name: id
+        in: path
+        description: Query ID
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\",\n  \"cancelled\": true\n\
+                    }"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 279139f5-f0e7-4f1c-bae5-ff509489981d
+                  cancelled:
+                    type: boolean
+                    example: true
+                    default: true
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/cancel-a-query
+      tags:
+      - queries
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic. Base64 of `username:password` (or of `API_KEY:` with an empty password)
+        in the Authorization header.

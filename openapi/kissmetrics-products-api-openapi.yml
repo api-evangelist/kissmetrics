@@ -1,0 +1,313 @@
+openapi: 3.1.0
+info:
+  title: Kissmetrics REST API — products
+  version: '3'
+  description: 'Account-level metadata endpoints: the products in the account and, for a product, its
+    reports, events and properties.
+
+
+    Assembled verbatim from the per-operation OpenAPI 3.1.0 documents Kissmetrics publishes on each reference
+    page of support.kissmetrics.io (the `.md` twin of every endpoint page carries a complete `# OpenAPI
+    definition` block). Nothing was authored by API Evangelist; operations were grouped by resource and
+    identical path+method variants merged as `oneOf`.'
+  contact:
+    name: Kissmetrics Support
+    url: https://support.kissmetrics.io/reference/overview-1
+servers:
+- url: https://query.kissmetrics.io/v3
+  description: Kissmetrics Query API v3
+tags:
+- name: products
+  description: 'Account-level metadata endpoints: the products in the account and, for a product, its
+    reports, events and properties.'
+security:
+- basicAuth: []
+paths:
+  /products:
+    get:
+      summary: Products
+      description: Get a list of products for the authorized user.
+      operationId: fetch-products
+      parameters:
+      - name: offset
+        in: query
+        description: An offset into the list of returned items. The API will return the requested number
+          of items start at that offset.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: A limit on the number of objects to be returned.
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"data\": [\n    {\n      \"id\": 123,\n      \"account_id\": 456,\n  \
+                    \    \"name\": \"Your Product\",\n      \"timezone\": \"US/Pacific\"\n    }\n  ]\n\
+                    }\n"
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 123
+                          default: 0
+                        account_id:
+                          type: integer
+                          example: 456
+                          default: 0
+                        name:
+                          type: string
+                          example: Your Product
+                        timezone:
+                          type: string
+                          example: US/Pacific
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/fetch-products
+      tags:
+      - products
+  /products/{product_id}/reports:
+    get:
+      summary: Reports
+      description: Get a list of reports for a given product for the authorized user.
+      operationId: fetch-reports
+      parameters:
+      - name: product_id
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: offset
+        in: query
+        description: An offset into the list of returned items. The API will return the requested number
+          of items start at that offset.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: A limit on the number of objects to be returned.
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"reports\": [\n    {\n      \"id\": 6789,\n      \"product_id\": 12345,\n\
+                    \      \"name\": \"My Funnel Report\",\n      \"report_type\": \"funnel\"\n    }\n\
+                    \  ]\n}"
+              schema:
+                type: object
+                properties:
+                  reports:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 6789
+                          default: 0
+                        product_id:
+                          type: integer
+                          example: 12345
+                          default: 0
+                        name:
+                          type: string
+                          example: My Funnel Report
+                        report_type:
+                          type: string
+                          example: funnel
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/fetch-reports
+      tags:
+      - products
+  /products/{product_id}/events:
+    get:
+      summary: Events
+      description: Get a list of events for a given product for the authorized user.
+      operationId: fetch-events
+      parameters:
+      - name: product_id
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: offset
+        in: query
+        description: An offset into the list of returned items. The API will return the requested number
+          of items start at that offset.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: A limit on the number of objects to be returned.
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"events\": [\n    {\n      \"id\": 6789,\n      \"product_id\": 12345,\n\
+                    \      \"name\": \"Visited site\",\n      \"visible\": true,\n      \"total\": 29,\n\
+                    \      \"first_used_at\": \"1970-01-01T00:00:00Z\",\n      \"last_used_at\": \"1970-01-01T00:00:00Z\"\
+                    ,\n      \"first_sent_at\": \"1970-01-01T00:00:00Z\",\n      \"last_sent_at\": \"\
+                    1970-01-01T00:00:00Z\"\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 6789
+                          default: 0
+                        product_id:
+                          type: integer
+                          example: 12345
+                          default: 0
+                        name:
+                          type: string
+                          example: Visited site
+                        visible:
+                          type: boolean
+                          example: true
+                          default: true
+                        total:
+                          type: integer
+                          example: 29
+                          default: 0
+                        first_used_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+                        last_used_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+                        first_sent_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+                        last_sent_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/fetch-events
+      tags:
+      - products
+  /products/{product_id}/properties:
+    get:
+      summary: Properties
+      description: Get a list of properties for a given product for the authorized user.
+      operationId: fetch-properties
+      parameters:
+      - name: product_id
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: offset
+        in: query
+        description: An offset into the list of returned items. The API will return the requested number
+          of items start at that offset.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: limit
+        in: query
+        description: A limit on the number of objects to be returned.
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"events\": [\n    {\n      \"id\": 6789,\n      \"product_id\": 12345,\n\
+                    \      \"name\": \"Visited site\",\n      \"visible\": true,\n      \"total\": 29,\n\
+                    \      \"first_used_at\": \"1970-01-01T00:00:00Z\",\n      \"last_used_at\": \"1970-01-01T00:00:00Z\"\
+                    ,\n      \"first_sent_at\": \"1970-01-01T00:00:00Z\",\n      \"last_sent_at\": \"\
+                    1970-01-01T00:00:00Z\"\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 6789
+                          default: 0
+                        product_id:
+                          type: integer
+                          example: 12345
+                          default: 0
+                        name:
+                          type: string
+                          example: Visited site
+                        visible:
+                          type: boolean
+                          example: true
+                          default: true
+                        total:
+                          type: integer
+                          example: 29
+                          default: 0
+                        first_used_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+                        last_used_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+                        first_sent_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+                        last_sent_at:
+                          type: string
+                          example: '1970-01-01T00:00:00Z'
+      deprecated: false
+      x-source: https://support.kissmetrics.io/reference/fetch-properties
+      tags:
+      - products
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: HTTP Basic. Base64 of `username:password` (or of `API_KEY:` with an empty password)
+        in the Authorization header.

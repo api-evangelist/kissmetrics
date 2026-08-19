@@ -1,0 +1,162 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTP probes, 2026-08-13
+summary:
+  hosts_probed: 6
+  paths_probed: 8
+  real_documents_found: 0
+  pointer_emitted: false
+note: >-
+  Kissmetrics serves no /.well-known document on any host. Two hosts answer 200 on every
+  /.well-known/* path and both are false positives, recorded here so a later run does not
+  mistake them for a hit: www.kissmetrics.io and ai.kissmetrics.io are Next.js single-page
+  apps whose catch-all route returns the HTML app shell (content-type text/html) for any
+  unknown path, and trk.kissmetrics.io returns a 1x1 GIF (content-type image/gif) for every
+  path by design — its own documentation states it "will respond with a 200 OK status, even if
+  some of these parameters are incorrect. The response will be a 1x1 GIF image". Neither is a
+  document. No WellKnown and no SecurityTxt pointer is emitted.
+hosts:
+  - host: support.kissmetrics.io
+    role: developer documentation (ReadMe)
+    probes:
+      - path: /.well-known/security.txt
+        status: 404
+        document: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        document: false
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        document: false
+      - path: /.well-known/oauth-protected-resource/mcp
+        status: 404
+        document: false
+      - path: /.well-known/api-catalog
+        status: 404
+        document: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        document: false
+      - path: /.well-known/agent.json
+        status: 404
+        document: false
+  - host: www.kissmetrics.io
+    role: marketing site (Next.js)
+    probes:
+      - path: /.well-known/security.txt
+        status: 404
+        document: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        document: false
+      - path: /.well-known/agent.json
+        status: 404
+        document: false
+  - host: ai.kissmetrics.io
+    role: application / signup (Next.js)
+    probes:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: text/html
+        document: false
+        reason: SPA catch-all returns the HTML app shell, not a document
+      - path: /.well-known/agent-card.json
+        status: 200
+        content_type: text/html
+        document: false
+        reason: SPA catch-all returns the HTML app shell, not an AgentCard
+      - path: /.well-known/agent.json
+        status: 200
+        content_type: text/html
+        document: false
+        reason: SPA catch-all returns the HTML app shell, not an AgentCard
+      - path: /.well-known/api-catalog
+        status: 200
+        content_type: text/html
+        document: false
+      - path: /.well-known/openid-configuration
+        status: 200
+        content_type: text/html
+        document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        content_type: text/html
+        document: false
+      - path: /openapi.json
+        status: 200
+        content_type: text/html
+        document: false
+  - host: app.kissmetrics.io
+    role: legacy application
+    probes:
+      - path: /.well-known/security.txt
+        status: 404
+        document: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        document: false
+      - path: /.well-known/agent.json
+        status: 404
+        document: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        document: false
+      - path: /llms.txt
+        status: 404
+        document: false
+  - host: query.kissmetrics.io
+    role: REST Query API host (servers[] of the published OpenAPI)
+    probes:
+      - path: /.well-known/security.txt
+        status: 404
+        document: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        document: false
+      - path: /.well-known/agent.json
+        status: 404
+        document: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        document: false
+      - path: /.well-known/api-catalog
+        status: 404
+        document: false
+      - path: /openapi.json
+        status: 404
+        document: false
+      - path: /llms.txt
+        status: 404
+        document: false
+  - host: trk.kissmetrics.io
+    role: event ingest / beacon host
+    probes:
+      - path: /.well-known/security.txt
+        status: 200
+        content_type: image/gif
+        document: false
+        reason: >-
+          Documented behaviour — every path on the tracking host returns a 1x1 GIF with 200 OK
+          regardless of validity. Not a document.
+      - path: /.well-known/agent-card.json
+        status: 200
+        content_type: image/gif
+        document: false
+      - path: /.well-known/agent.json
+        status: 200
+        content_type: image/gif
+        document: false
+llms_txt:
+  - url: https://support.kissmetrics.io/llms.txt
+    status: 200
+    content_type: text/plain
+    document: true
+    saved: llms/kissmetrics-llms.txt
+  - url: https://www.kissmetrics.io/llms.txt
+    status: 200
+    content_type: text/plain
+    document: true
+    saved: llms/kissmetrics-site-llms.txt

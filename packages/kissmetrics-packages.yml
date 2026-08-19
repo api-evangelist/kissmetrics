@@ -1,0 +1,150 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, rubygems.org, repo.packagist.org, trunk.cocoapods.org,
+  github.com/kissmetrics, and the Kissmetrics install skill
+  (https://raw.githubusercontent.com/kissmetrics/km-installer/main/skills/SKILL.md)
+summary:
+  official_count: 6
+  third_party_count: 3
+  newest_official_release: '2023-12-14'
+  note: >-
+    Every first-party Kissmetrics client library on a public registry last shipped between
+    2013 and 2023. The REST Query API (v3) documented at support.kissmetrics.io is not wrapped
+    by any of them — the published SDKs cover the legacy tracking/ingest API only. The current,
+    actively maintained distribution channel is the CDN-hosted JavaScript snippet, which is
+    unpinned.
+packages:
+  - language: ruby
+    name: kmts
+    registry: rubygems
+    official: true
+    url: https://rubygems.org/gems/kmts
+    repository: https://github.com/kissmetrics/kmts
+    version: 3.1.0
+    published: '2020-06-17'
+    downloads: 989857
+    covers: tracking-api
+    description: >-
+      Threadsafe Ruby gem for the Kissmetrics tracking API (record / identify / set / alias).
+  - language: ruby
+    name: km
+    registry: rubygems
+    official: true
+    url: https://rubygems.org/gems/km
+    repository: https://github.com/kissmetrics/km
+    version: 1.3.0
+    published: '2020-06-17'
+    downloads: 611697
+    covers: tracking-api
+    description: KISSmetrics Ruby API gem (original, non-threadsafe client).
+  - language: php
+    name: kissmetrics/kissmetrics-php
+    registry: packagist
+    official: true
+    url: https://packagist.org/packages/kissmetrics/kissmetrics-php
+    repository: https://github.com/kissmetrics/kissmetrics-php
+    version: null
+    published: '2023-12-14'
+    covers: tracking-api
+    note: >-
+      Packagist answers 200 for the package but publishes no tagged release version; the date
+      recorded is the last push to the source repository. version is null because the registry
+      exposes nothing to read — checked, nothing to record.
+  - language: php
+    name: kissmetrics/kissmetrics
+    registry: packagist
+    official: true
+    url: https://packagist.org/packages/kissmetrics/kissmetrics
+    repository: https://github.com/kissmetrics/KISSmetrics
+    version: null
+    published: '2014-11-17'
+    covers: tracking-api
+    note: >-
+      Combined PHP/Python client from the KISSmetrics repo. No tagged release on Packagist;
+      date is the last push to the source repository.
+  - language: python
+    name: KISSmetrics
+    registry: pypi
+    official: true
+    url: https://pypi.org/project/KISSmetrics/
+    repository: https://github.com/kissmetrics/KISSmetrics
+    version: 0.1.0
+    published: '2013-05-22'
+    covers: tracking-api
+    description: Python client for the KISSmetrics tracking API.
+  - language: objective-c
+    name: KISSmetrics
+    registry: cocoapods
+    official: true
+    url: https://cocoapods.org/pods/KISSmetrics
+    repository: https://github.com/kissmetrics/KISSmetrics-iOS-SDK
+    version: null
+    published: '2020-08-14'
+    covers: tracking-api
+    note: >-
+      CocoaPods trunk answers 200 for the pod; version not read because the trunk API returns a
+      version list rather than a resolvable "latest" field. Date is the last push to the
+      first-party iOS SDK repository.
+  - language: java
+    name: KISSmetrics-Android-SDK
+    registry: none
+    official: true
+    url: https://github.com/kissmetrics/KISSmetrics-Android-SDK
+    repository: https://github.com/kissmetrics/KISSmetrics-Android-SDK
+    version: null
+    published: '2022-08-09'
+    covers: tracking-api
+    note: >-
+      Distributed as source from GitHub only — not published to Maven Central or any other
+      registry, so there is no metadata endpoint to read a version from. Date is the last push.
+  - language: javascript
+    name: scripts.kissmetrics.io/<product_key>.2.js
+    registry: cdn
+    official: true
+    url: https://scripts.kissmetrics.io/
+    version: null
+    published: null
+    covers: tracking-api
+    loader: "//i.kissmetrics.io/i.js"
+    note: >-
+      The current and recommended distribution: a per-product compiled JavaScript SDK served
+      from the Kissmetrics CDN, loaded by the `_kmq` snippet. The URL is NOT version-pinned —
+      it floats to whatever Kissmetrics has published for that product key — so a consumer
+      cannot tell which build they are running. version and published are null for that reason.
+      Verbatim snippet published in the km-installer skill.
+third_party:
+  - language: javascript
+    name: kissmetrics
+    registry: npm
+    official: false
+    url: https://www.npmjs.com/package/kissmetrics
+    repository: https://github.com/glesperance/node-kissmetrics
+    version: 0.0.4
+    published: '2011-10-14'
+    note: Community Node client, unrelated to the kissmetrics GitHub organization.
+  - language: ruby
+    name: kissmetrics
+    registry: rubygems
+    official: false
+    url: https://rubygems.org/gems/kissmetrics
+    repository: https://github.com/jasonm/kissmetrics
+    version: 2.0.0
+    published: '2011-10-18'
+    note: Community gem by jasonm; the first-party gems are `km` and `kmts`.
+  - language: php
+    name: ricbra/php-kissmetrics-api
+    registry: packagist
+    official: false
+    url: https://packagist.org/packages/ricbra/php-kissmetrics-api
+    version: null
+    published: null
+    note: Community PHP client; version not read (not first-party, recorded for completeness).
+gaps:
+  - >-
+    No first-party SDK exists for the REST Query API (query.kissmetrics.io/v3). The provider
+    publishes example scripts instead — github.com/kissmetrics/example-api-scripts (Ruby, last
+    push 2021-07-12), example-metrics and example-people-search (the latter marked "Deprecated"
+    by the provider).
+  - >-
+    No package is published to Maven Central, NuGet, pkg.go.dev or crates.io.

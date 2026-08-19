@@ -1,0 +1,116 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "rest-api",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/exports": {
+      "post": {
+        "summary": "Export to S3",
+        "description": "The results of both ad-hoc queries and saved report queries can be exported to a S3 bucket in CSV format. The Kissmetrics Query API requires S3 bucket details and the ID of the query to export (obtained from running an ad-hoc report or running a saved report).\n\nThe S3 bucket must be writable or else the export will fail. See the documentation for instructions on how to give write access to Kissmetrics.\n\nThe response for this endpoint provides an export ID, which can be used to check the status of the export (unstarted/started/completed/error/cancelled).\n\nIf an error occurs and an email is provided, an error notification will be sent to the specified address.",
+        "operationId": "export-to-s3",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "export_type",
+                  "query_id"
+                ],
+                "properties": {
+                  "export_type": {
+                    "type": "string",
+                    "description": "`s3`",
+                    "default": "s3"
+                  },
+                  "query_id": {
+                    "type": "string"
+                  },
+                  "options": {
+                    "properties": {
+                      "bucket": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "bucket",
+                      "path"
+                    ],
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

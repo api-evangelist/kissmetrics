@@ -1,0 +1,153 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://support.kissmetrics.io/reference/overview,
+  https://support.kissmetrics.io/reference/authorization,
+  https://support.kissmetrics.io/reference/query-types,
+  https://support.kissmetrics.io/reference/api-specifications-1,
+  https://kissmetrics.io/product/workflows/api, and openapi/kissmetrics-*-api-openapi.yml
+api: kissmetrics:rest-api
+summary: >-
+  Kissmetrics runs two very different surfaces with two different sets of conventions: a
+  Basic-auth JSON REST Query API at query.kissmetrics.io/v3 for reading data out, and a
+  parameter-in-the-querystring beacon at trk.kissmetrics.io for writing events in. The REST API
+  is asynchronous by design — every query returns an id and is polled — and the beacon is
+  fire-and-forget.
+
+authentication:
+  style: http-basic
+  header: 'Authorization: Basic <base64(username:password)>'
+  docs: https://support.kissmetrics.io/reference/authorization
+  notes:
+    - >-
+      The reference page documents Basic with an account email and password. The API product
+      page documents the same header with an API key as the username and an EMPTY password —
+      `Authorization: Basic BASE64(YOUR_API_KEY:)`. Both are published by Kissmetrics; they
+      disagree, and no page reconciles them.
+    - No OAuth, no OIDC, no scopes, no token endpoint. There is nothing to scope.
+    - >-
+      The tracking/beacon surface uses a different credential entirely: the product key `_k`
+      (also called `_kmk`), a ~40-character hex string, passed in the query string in the clear.
+  artifact: authentication/kissmetrics-authentication.yml
+
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key header, no idempotency section, and no request-replay guidance appears
+    anywhere in the Kissmetrics REST reference or the published per-operation OpenAPI. The only
+    duplicate-handling Kissmetrics documents is server-side de-duplication on the INGEST side —
+    the beacon docs link to "how our processing servers detect duplicate events" — which is
+    de-duplication of identical event payloads, not caller-supplied idempotency.
+  note: >-
+    Recorded as a genuine absence. No Idempotency pointer is emitted for this provider.
+
+pagination:
+  style: offset-limit
+  applies_to:
+    - fetch-reports
+    - fetch-events
+    - fetch-properties
+    - v3queriesid
+  request_params:
+    - name: offset
+      in: query
+      type: integer
+      default: 0
+      description: An offset into the list of returned items.
+    - name: limit
+      in: query
+      type: integer
+      default: 50
+      description: A limit on the number of objects to be returned.
+  response_fields: []
+  note: >-
+    The published response schemas return a bare array under a resource key (`reports`,
+    `events`, `properties`) with no total, no next cursor and no link header, so a caller cannot
+    tell whether another page exists except by asking for one.
+
+sorting:
+  params:
+    - name: sort
+      description: The field to sort results by.
+    - name: order
+      description: '`asc` or `desc`; defaults to `asc`.'
+  applies_to: [run-query, v3queriesid]
+
+async_execution:
+  model: submit-poll
+  description: >-
+    Queries are not answered inline. POST /queries (or /queries/report, /queries/metric) returns
+    `{"id": "<uuid>"}` and the caller polls GET /queries/{id} for status and results. DELETE
+    /queries/{id} cancels a running query. Exports follow the same shape: POST /exports returns
+    an export id, GET /exports/{export_id} reports unstarted / started / completed / error /
+    cancelled and carries the download link.
+  query_types:
+    docs: https://support.kissmetrics.io/reference/query-types
+    values: [people_search, cohort, ab_test, funnel, metric, metric_over_time, people_count, activity, sql]
+
+field_expansion:
+  supported: false
+metadata:
+  supported: false
+  note: >-
+    Arbitrary user properties ARE first-class on the INGEST side — any unreserved query-string
+    key on the beacon sets a person property — but the REST API has no metadata bag.
+
+request_id_tracing:
+  supported: false
+  note: No request-id or correlation header is documented or present in the published spec.
+
+versioning:
+  style: uri-path
+  current: v3
+  base_url: https://query.kissmetrics.io/v3
+  note: >-
+    The version is in the path. The REST API is self-declared BETA: "the REST API is still under
+    heavy development and subject to regular changes. These changes could result in breaking
+    changes for developers."
+  artifact: lifecycle/kissmetrics-lifecycle.yml
+
+error_envelope:
+  format: custom-json
+  rfc9457: false
+  shape:
+    status: integer
+    messages: array of strings
+  example: '{"status": 401, "messages": ["Unauthenticated."]}'
+  docs: https://support.kissmetrics.io/reference/authorization
+  artifact: errors/kissmetrics-problem-types.yml
+
+rate_limit_signaling:
+  documented_limit: 15 requests per minute
+  docs: https://kissmetrics.io/product/workflows/api
+  response_headers: []
+  exhaustion_status: null
+  note: >-
+    The limit is published as prose on the API product page. Kissmetrics documents NO
+    rate-limit response headers and does not state which status code it returns on exhaustion,
+    so an agent has a number it cannot observe at runtime.
+  artifact: rate-limits/kissmetrics-rate-limits.yml
+
+ingest_conventions:
+  host: https://trk.kissmetrics.io
+  docs: https://support.kissmetrics.io/reference/api-specifications-1
+  endpoints:
+    - path: /e
+      purpose: record an event
+      required: ['_k (product key)', '_p (person identity)', '_n (event name)']
+    - path: /s
+      purpose: set person properties
+      required: ['_k', '_p']
+    - path: /a
+      purpose: alias two identities to one person
+      required: ['_k', '_p', '_n']
+  methods: [GET, POST]
+  always_200: true
+  note: >-
+    A deliberate and unusual convention worth calling out for agents: the ingest host "will
+    respond with a 200 OK status, even if some of these parameters are incorrect", returning a
+    1x1 GIF. A 200 from trk.kissmetrics.io is NOT evidence that an event was accepted. Aliasing
+    is documented as irreversible.
+  timestamps: >-
+    `_t` carries a Unix epoch in seconds but is ignored unless `_d=1` is also sent.

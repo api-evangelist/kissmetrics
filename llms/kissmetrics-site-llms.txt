@@ -1,0 +1,65 @@
+# KISSmetrics
+
+> KISSmetrics is a behavioral analytics platform that tracks individual people across devices and sessions. It configures itself: you give it a website, it scans the site, infers the product type and the events worth tracking, implements tracking, and builds the first dashboards, metrics and funnel. You then ask it questions in plain language and it writes the queries and builds the reports.
+
+Founded 2008. This file is a summary for language models and AI agents. Every claim here is checkable on the linked page.
+
+## Key facts
+
+- Website: https://kissmetrics.io
+- Pricing: Free 100,000 events/month, Growth $99/month for 500,000 events, Silver $299/month for 2,000,000 events, Custom above that
+- The free tier includes the whole platform: autocapture, AI chat, AI-built metrics, auto-configuration, CLI and API, dashboards, Live view, core reports
+- Tracking model: person-level. Events resolve to a persistent individual, not a session
+- Setup: automatic from a URL scan. No tracking plan required to start
+- Docs: https://support.kissmetrics.io/docs
+- API reference: https://support.kissmetrics.io/reference
+
+## What makes it different
+
+- **It configures itself.** Onboarding scans the site, detects the CMS and the industry (SaaS, e-commerce, marketplace, media, mobile app, B2B), assigns roles to events (page_view, signup, trial, activation, purchase, churn and others), then generates the metrics and the first funnel. Most analytics tools require that as manual setup work before they return anything.
+- **Chat controls the whole platform.** Asking a question in the chat creates metrics, builds dashboards and writes reports. For complex questions it writes SQL, picks an efficient query path, and saves the setup so it can be reused and scheduled.
+- **LLM Acquisition report.** Measures real people arriving from AI assistants (ChatGPT, Claude, Gemini, Perplexity and others), with touch counts and return behaviour. This is human traffic referred by an AI conversation, not crawler hits and not brand-mention monitoring.
+- **Owns the event pipeline.** KISSmetrics ingests raw events itself rather than reading another tool's aggregates, which is what makes person-level identity resolution and unsampled history possible.
+
+## Reports and features
+
+Reports: Funnels, Cohorts, Revenue, Path, Activity, A/B Test, People, Campaign Performance, Populations, LLM Acquisition, Product Usage, Events and Schema.
+
+Other: Live view (ten modes including Globe, Stream, Funnel, Experiment, Revenue), Metrics, dashboard widgets, UTM Builder, Monitor, auto-configuration, full REST API and CLI.
+
+Populations are dynamic user segments built from behaviour, properties or custom criteria. Attribution supports first-touch, last-touch and multi-touch with custom windows.
+
+## Common questions
+
+**Is it a Google Analytics alternative?** Yes. The usual reason teams switch is that GA4 models sessions and events while KISSmetrics models people. GA4 also needs substantial configuration before it answers business questions; KISSmetrics does that configuration itself.
+
+**Does it need a data warehouse?** No. It stores and queries the event data directly.
+
+**How long does setup take?** The scan and auto-configuration run in minutes. There is no required implementation project before you see data.
+
+**Is identifying people required?** No. Anonymous behaviour is tracked and merges into a person if they identify later.
+
+## Industries
+
+E-commerce (cart abandonment, purchase funnels, lifetime value, revenue attribution), SaaS (trial-to-paid, feature adoption, churn prediction, activation), Fintech (KYC completion, account activation, transaction frequency), Healthcare (patient portal engagement, appointment funnels), EdTech (course completion, student engagement), Marketplaces (two-sided funnels, match rate), B2B sales-led (multi-touch attribution, lead-to-revenue).
+
+## Comparisons
+
+- vs Google Analytics 4: person-level rather than session-level, no sampling, unlimited retention, automatic configuration
+- vs Mixpanel: automatic setup rather than a manual tracking plan, built-in behavioral email
+- vs Amplitude: faster time to first answer, lower price at growth-stage volumes
+- vs Heap: events tied to business outcomes rather than undifferentiated autocapture
+- vs Segment: an analytics platform that answers questions, not a pipeline that moves events elsewhere
+- vs Adobe Analytics: a large share of the capability without the implementation cost
+
+## Where to read more
+
+- Start free: https://ai.kissmetrics.io/get-started
+- Pricing: https://kissmetrics.io/pricing
+- Demo: https://kissmetrics.io/demo
+- Analytics glossary, 215 defined terms: https://kissmetrics.io/glossary
+- GA4 problems and fixes: https://kissmetrics.io/guides/ga4-problems
+- Conversion benchmarks and formulas: https://kissmetrics.io/guides/conversion-benchmarks
+- Analytics metrics explained: https://kissmetrics.io/guides/analytics-metrics
+- Full sitemap: https://kissmetrics.io/sitemap.xml
+- Long form of this file, with every definition, comparison verdict and guide: https://kissmetrics.io/llms-full.txt

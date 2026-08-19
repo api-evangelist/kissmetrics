@@ -1,0 +1,505 @@
+{
+  "item": [
+    {
+      "id": "cceaf6e4-2e46-463a-9c9d-e61e1f0a28a4",
+      "name": "products",
+      "description": {
+        "content": "Account-level metadata endpoints: the products in the account and, for a product, its reports, events and properties.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "373a77c4-3fc2-4d66-ab7b-c41846a80d3c",
+          "name": "Products",
+          "request": {
+            "name": "Products",
+            "description": {
+              "content": "Get a list of products for the authorized user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "A limit on the number of objects to be returned."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a6db6ad5-933a-481f-aa5a-44049c7a6e66",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"data\\\": [\\n    {\\n      \\\"id\\\": 123,\\n      \\\"account_id\\\": 456,\\n      \\\"name\\\": \\\"Your Product\\\",\\n      \\\"timezone\\\": \\\"US/Pacific\\\"\\n    }\\n  ]\\n}\\n\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5288918e-26ee-42ff-a3a9-a2ea26f3ddbc",
+          "name": "Reports",
+          "request": {
+            "name": "Reports",
+            "description": {
+              "content": "Get a list of reports for a given product for the authorized user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "reports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "A limit on the number of objects to be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63dcb6c1-4ec3-4ec4-a9da-90afcc469c52",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "reports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"reports\\\": [\\n    {\\n      \\\"id\\\": 6789,\\n      \\\"product_id\\\": 12345,\\n      \\\"name\\\": \\\"My Funnel Report\\\",\\n      \\\"report_type\\\": \\\"funnel\\\"\\n    }\\n  ]\\n}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "de6d90fc-1b17-4e11-9415-f6ec9d898651",
+          "name": "Events",
+          "request": {
+            "name": "Events",
+            "description": {
+              "content": "Get a list of events for a given product for the authorized user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "A limit on the number of objects to be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7f0bb2f3-064b-4a22-99d3-0b60c51fc56e",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"events\\\": [\\n    {\\n      \\\"id\\\": 6789,\\n      \\\"product_id\\\": 12345,\\n      \\\"name\\\": \\\"Visited site\\\",\\n      \\\"visible\\\": true,\\n      \\\"total\\\": 29,\\n      \\\"first_used_at\\\": \\\"1970-01-01T00:00:00Z\\\",\\n      \\\"last_used_at\\\": \\\"1970-01-01T00:00:00Z\\\",\\n      \\\"first_sent_at\\\": \\\"1970-01-01T00:00:00Z\\\",\\n      \\\"last_sent_at\\\": \\\"1970-01-01T00:00:00Z\\\"\\n    }\\n  ]\\n}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c27f0e64-bf82-4d6a-9373-6022d695f44c",
+          "name": "Properties",
+          "request": {
+            "name": "Properties",
+            "description": {
+              "content": "Get a list of properties for a given product for the authorized user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "products",
+                ":product_id",
+                "properties"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0",
+                  "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50",
+                  "description": "A limit on the number of objects to be returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "product_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0f9c9e9-262a-4315-8f85-a1ada0d925b1",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "products",
+                    ":product_id",
+                    "properties"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "product_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"events\\\": [\\n    {\\n      \\\"id\\\": 6789,\\n      \\\"product_id\\\": 12345,\\n      \\\"name\\\": \\\"Visited site\\\",\\n      \\\"visible\\\": true,\\n      \\\"total\\\": 29,\\n      \\\"first_used_at\\\": \\\"1970-01-01T00:00:00Z\\\",\\n      \\\"last_used_at\\\": \\\"1970-01-01T00:00:00Z\\\",\\n      \\\"first_sent_at\\\": \\\"1970-01-01T00:00:00Z\\\",\\n      \\\"last_sent_at\\\": \\\"1970-01-01T00:00:00Z\\\"\\n    }\\n  ]\\n}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://query.kissmetrics.io/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "2c762a02-09b6-4976-b860-244914499737",
+    "name": "Kissmetrics REST API — products",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Account-level metadata endpoints: the products in the account and, for a product, its reports, events and properties.\n\nAssembled verbatim from the per-operation OpenAPI 3.1.0 documents Kissmetrics publishes on each reference page of support.kissmetrics.io (the `.md` twin of every endpoint page carries a complete `# OpenAPI definition` block). Nothing was authored by API Evangelist; operations were grouped by resource and identical path+method variants merged as `oneOf`.\n\nContact Support:\n Name: Kissmetrics Support",
+      "type": "text/plain"
+    }
+  }
+}

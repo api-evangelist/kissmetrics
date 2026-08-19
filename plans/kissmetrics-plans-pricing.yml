@@ -1,0 +1,91 @@
+generated: '2026-08-13'
+method: searched
+source: https://kissmetrics.io/pricing
+currency: USD
+billing_periods: [monthly, annual]
+plan_count: 4
+public_pricing: true
+notes:
+  - >-
+    Annual billing is a flat 20% discount on the monthly rate; prices shown on the page's slider
+    are the annual basis.
+  - >-
+    Kissmetrics states Growth, Silver and Gold are "the identical product" — the only difference
+    is price per event, which falls as volume rises. Above 5M events/month pricing is quoted
+    individually.
+  - >-
+    API and CLI access are explicitly NOT paywalled: "The entire CLI and API are free, no
+    paywall" on the Free tier; the paid tiers add "higher limits and the full programmatic
+    surface" without publishing the higher limit.
+plans:
+  - name: Free
+    price: 0
+    currency: USD
+    period: month
+    included_quota:
+      events: 100000
+      period: month
+    overage: null
+    card_required: false
+    limits:
+      api_access: full
+      cli_access: full
+      rate_limit: 15 requests per minute
+    includes:
+      - Autocapture tracking (one snippet or one CLI command)
+      - AI chat and AI-built metrics
+      - Autoconfiguration from a URL scan
+      - Full CLI + API access
+      - Dashboards, Metrics and Live view
+      - Core reports and querying (funnels, cohorts, activity)
+  - name: Growth
+    price: 99
+    price_qualifier: from
+    currency: USD
+    period: month
+    included_quota:
+      events: 500000
+      period: month
+    overage: automated
+    limits:
+      api_access: extensive
+      rate_limit: 15 requests per minute (standard limit, all plans)
+    includes:
+      - Populations (reusable behavioral audiences)
+      - Complex query builder
+      - Full report suite (Revenue, Path, A/B Test, People, Campaign Performance, LLM Acquisition, Product Usage)
+      - 30+ integrations
+      - Extensive API access
+    note: >-
+      An example price point published on the page's slider: 479k events/month = $79/mo at
+      $0.165 per 1,000 events, billed annually.
+  - name: Silver
+    price: 299
+    currency: USD
+    period: month
+    included_quota:
+      events: 2000000
+      period: month
+    overage: automated
+    note: >-
+      Price and quota taken from the Kissmetrics llms.txt key-facts block
+      (https://www.kissmetrics.io/llms.txt). The pricing page presents Silver and Gold through a
+      volume slider rather than a fixed card; it states they are the same product as Growth at a
+      lower per-event rate.
+  - name: Gold / Custom
+    price: null
+    currency: USD
+    period: month
+    included_quota:
+      events: null
+    contact_sales: true
+    note: >-
+      "Above 5M events we price to your volume, at a better per event rate than any published
+      tier."
+services:
+  - name: The Accelerator
+    type: done-with-you services engagement
+    pricing_model: free assessment, then a small deposit, then a success fee against an agreed metric
+    price: null
+    url: https://kissmetrics.io/accelerator
+    note: Not an API plan; recorded because it is the only other published commercial motion.

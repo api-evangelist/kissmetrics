@@ -1,0 +1,98 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/_original/kissmetrics-*.json — response examples Kissmetrics publishes inside its own
+  per-operation OpenAPI documents
+api: kissmetrics:rest-api
+description: Real response examples published by Kissmetrics on its reference pages, lifted out of the
+  per-operation OpenAPI documents so they are readable as data. Nothing here was authored or invented;
+  every value is verbatim from the provider. Request examples are not included because Kissmetrics publishes
+  request SCHEMAS but no request example values.
+example_count: 8
+operations_with_examples: 8
+operations_total: 11
+examples:
+- operationId: ad-hoc-query
+  method: POST
+  path: /queries
+  summary: Ad-hoc Query
+  docs: https://support.kissmetrics.io/reference/ad-hoc-query
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\"\n}"
+- operationId: cancel-a-query
+  method: DELETE
+  path: /queries/{id}
+  summary: Cancel a Query
+  docs: https://support.kissmetrics.io/reference/cancel-a-query
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\",\n  \"cancelled\": true\n}"
+- operationId: fetch-events
+  method: GET
+  path: /products/{product_id}/events
+  summary: Events
+  docs: https://support.kissmetrics.io/reference/fetch-events
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"events\": [\n    {\n      \"id\": 6789,\n      \"product_id\": 12345,\n      \"name\"\
+      : \"Visited site\",\n      \"visible\": true,\n      \"total\": 29,\n      \"first_used_at\": \"\
+      1970-01-01T00:00:00Z\",\n      \"last_used_at\": \"1970-01-01T00:00:00Z\",\n      \"first_sent_at\"\
+      : \"1970-01-01T00:00:00Z\",\n      \"last_sent_at\": \"1970-01-01T00:00:00Z\"\n    }\n  ]\n}"
+- operationId: fetch-products
+  method: GET
+  path: /products
+  summary: Products
+  docs: https://support.kissmetrics.io/reference/fetch-products
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"data\": [\n    {\n      \"id\": 123,\n      \"account_id\": 456,\n      \"name\"\
+      : \"Your Product\",\n      \"timezone\": \"US/Pacific\"\n    }\n  ]\n}\n"
+- operationId: fetch-properties
+  method: GET
+  path: /products/{product_id}/properties
+  summary: Properties
+  docs: https://support.kissmetrics.io/reference/fetch-properties
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"events\": [\n    {\n      \"id\": 6789,\n      \"product_id\": 12345,\n      \"name\"\
+      : \"Visited site\",\n      \"visible\": true,\n      \"total\": 29,\n      \"first_used_at\": \"\
+      1970-01-01T00:00:00Z\",\n      \"last_used_at\": \"1970-01-01T00:00:00Z\",\n      \"first_sent_at\"\
+      : \"1970-01-01T00:00:00Z\",\n      \"last_sent_at\": \"1970-01-01T00:00:00Z\"\n    }\n  ]\n}"
+- operationId: fetch-reports
+  method: GET
+  path: /products/{product_id}/reports
+  summary: Reports
+  docs: https://support.kissmetrics.io/reference/fetch-reports
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"reports\": [\n    {\n      \"id\": 6789,\n      \"product_id\": 12345,\n      \"\
+      name\": \"My Funnel Report\",\n      \"report_type\": \"funnel\"\n    }\n  ]\n}"
+- operationId: saved-metric-query
+  method: POST
+  path: /queries/metric
+  summary: Saved Metric Query
+  docs: https://support.kissmetrics.io/reference/saved-metric-query
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\"\n}"
+- operationId: v3queriesreport
+  method: POST
+  path: /queries/report
+  summary: Saved Report Query
+  docs: https://support.kissmetrics.io/reference/v3queriesreport
+  responses:
+  - status: '200'
+    media_type: application/json
+    example: "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\"\n}"
+gaps:
+- No request-body example values are published for any operation, only schemas.
+- GET /queries/{id} — the operation that returns query results — publishes no response and therefore no
+  example.
+- The 400 responses that are declared carry an empty example ("{}"), so no error example exists.

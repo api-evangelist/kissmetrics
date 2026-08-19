@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Kissmetrics REST API — products",
+    "version": "3"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://query.kissmetrics.io/v3/products",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A limit on the number of objects to be returned."
+              }
+            ]
+          },
+          "docs": "Get a list of products for the authorized user."
+        },
+        {
+          "info": {
+            "name": "Reports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://query.kissmetrics.io/v3/products/:product_id/reports",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A limit on the number of objects to be returned."
+              }
+            ]
+          },
+          "docs": "Get a list of reports for a given product for the authorized user."
+        },
+        {
+          "info": {
+            "name": "Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://query.kissmetrics.io/v3/products/:product_id/events",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A limit on the number of objects to be returned."
+              }
+            ]
+          },
+          "docs": "Get a list of events for a given product for the authorized user."
+        },
+        {
+          "info": {
+            "name": "Properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://query.kissmetrics.io/v3/products/:product_id/properties",
+            "params": [
+              {
+                "name": "product_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "A limit on the number of objects to be returned."
+              }
+            ]
+          },
+          "docs": "Get a list of properties for a given product for the authorized user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

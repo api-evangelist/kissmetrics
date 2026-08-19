@@ -1,0 +1,80 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "rest-api",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/queries/{id}": {
+      "delete": {
+        "summary": "Cancel a Query",
+        "description": "Cancel a query that has been previously started.",
+        "operationId": "cancel-a-query",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Query ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\",\n  \"cancelled\": true\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "279139f5-f0e7-4f1c-bae5-ff509489981d"
+                    },
+                    "cancelled": {
+                      "type": "boolean",
+                      "example": true,
+                      "default": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

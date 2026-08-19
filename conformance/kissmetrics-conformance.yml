@@ -1,0 +1,89 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/kissmetrics-*-api-openapi.yml, https://support.kissmetrics.io/reference/authorization,
+  https://kissmetrics.io/privacy, https://kissmetrics.io/terms
+api: kissmetrics:rest-api
+description: >-
+  Cross-cutting standards conformance for the Kissmetrics REST Query API, asserted from the
+  published contract and documentation. Every `conforms: false` below is a recorded absence, not
+  a criticism — it means the standard is not claimed and not observable.
+standards:
+  - id: openapi
+    conforms: true
+    version: '3.1.0'
+    evidence: >-
+      Kissmetrics publishes a complete OpenAPI 3.1.0 document per endpoint on each reference
+      page of support.kissmetrics.io (the page's `.md` twin carries a `# OpenAPI definition`
+      block). 17 operation documents were harvested verbatim into openapi/_original/.
+  - id: http-basic
+    conforms: true
+    rfc: RFC 7617
+    evidence: >-
+      `securitySchemes.sec0 = {type: http, scheme: basic}` in every published fragment, and a
+      dedicated Authorization reference page documenting the base64 encoding.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 securityScheme in the published spec, no token endpoint, and
+      /.well-known/oauth-authorization-server 404s on every Kissmetrics host.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration 404s on support., app. and query.kissmetrics.io.
+  - id: rfc9457
+    conforms: false
+    evidence: >-
+      Errors are a custom `{status, messages[]}` JSON object served as application/json, not
+      application/problem+json. See errors/kissmetrics-problem-types.yml.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header and no idempotency guidance anywhere in the reference or the
+      published spec. See conventions/kissmetrics-conventions.yml.
+  - id: pagination
+    conforms: partial
+    evidence: >-
+      Offset/limit query parameters with published defaults (offset 0, limit 50) on the list
+      operations, but no total count, no cursor, and no Link header, so a caller cannot detect
+      the last page.
+  - id: rate-limit-headers
+    conforms: false
+    rfc: RFC 9331 / draft-ietf-httpapi-ratelimit-headers
+    evidence: >-
+      A limit of 15 requests per minute is published as prose; no RateLimit-*, X-RateLimit-* or
+      Retry-After header is documented and no 429 response is declared.
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation header, no deprecation policy, and no operation flagged
+      `deprecated: true` — despite the previous documentation portal having been retired
+      outright.
+  - id: json-schema
+    conforms: true
+    version: 2020-12
+    evidence: >-
+      Request and response schemas are inline JSON Schema within the OpenAPI 3.1.0 documents.
+      Note there are no reusable `components.schemas` — every schema is declared inline at the
+      operation, so no entity is defined once and referenced.
+  - id: jsonapi
+    conforms: false
+    evidence: Plain JSON resource objects; no JSON:API media type or document structure.
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      No AsyncAPI document and no documented webhook catalog. "Webhooks" appear as a marketing
+      bullet on kissmetrics.io/product/workflows but no webhook reference page exists
+      (/docs/webhooks, /reference/webhooks both 404 on support.kissmetrics.io).
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: /.well-known/security.txt returns 404 or a non-document on every host probed.
+compliance:
+  certifications_published: []
+  programs_published: []
+  evidence: >-
+    No trust center, no /security page (404), no SOC 2 / ISO 27001 / PCI / HIPAA / FedRAMP claim
+    on kissmetrics.io, and no certification named in the privacy policy. The privacy policy does
+    state that sub-processors are bound by data processing agreements and are prohibited from
+    using customer data to train foundation models. That is a contractual statement, not a
+    published certification, so no Compliance pointer is emitted.
+  source: https://kissmetrics.io/privacy

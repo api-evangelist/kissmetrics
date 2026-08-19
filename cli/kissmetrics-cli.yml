@@ -1,0 +1,40 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://www.kissmetrics.io/llms.txt, https://kissmetrics.io/pricing,
+  https://kissmetrics.io/agentic-marketing, https://kissmetrics.io/product/workflows/api,
+  https://support.kissmetrics.io/llms.txt
+status: advertised-undocumented
+published: false
+name: null
+install: []
+commands: []
+findings:
+  - claim: '"Full CLI + API access. The entire CLI and API are free, no paywall."'
+    source: https://kissmetrics.io/pricing
+  - claim: '"Autocapture tracking. One snippet or one CLI command."'
+    source: https://kissmetrics.io/pricing
+  - claim: '"Chat, API and CLI over the same modules" / "API and CLI — Everything is callable"'
+    source: https://kissmetrics.io/product
+  - claim: '"the API and CLI expose the identical actions to your own agents"'
+    source: https://kissmetrics.io/agentic-marketing
+  - claim: '"full REST API and CLI"'
+    source: https://www.kissmetrics.io/llms.txt
+evidence_against_publication:
+  - >-
+    The developer documentation index at https://support.kissmetrics.io/llms.txt lists every
+    guide and reference page Kissmetrics publishes. It contains no CLI page. The word "CLI"
+    does not appear in it.
+  - >-
+    The site sitemap (https://www.kissmetrics.io/sitemap.xml, 493 URLs, HTTP 200) contains no
+    CLI page.
+  - >-
+    No CLI binary or package is published to npm, PyPI, RubyGems, Homebrew or the
+    github.com/kissmetrics organization (30 public repos reviewed 2026-08-13).
+note: >-
+  Kissmetrics markets a CLI on at least five separate marketing surfaces, including its own
+  llms.txt, and describes it as a primary agent control surface. No install command, no command
+  reference, and no distribution artifact for it could be found on any public surface. Recorded
+  here as a documented marketing claim with no published implementation. NO `CLI` pointer is
+  emitted in apis.yml, because the scoring check asserts the provider publishes a CLI surface
+  and this evidence does not support that.

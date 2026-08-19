@@ -1,0 +1,83 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://support.kissmetrics.io/reference/overview, https://kissmetrics.io/updates,
+  https://support.kissmetrics.io/llms.txt, and openapi/kissmetrics-*-api-openapi.yml
+api: kissmetrics:rest-api
+versioning:
+  style: uri-path
+  current_version: v3
+  base_url: https://query.kissmetrics.io/v3
+  header_negotiation: false
+  documented: true
+  source: https://support.kissmetrics.io/reference/overview
+stability:
+  stage: beta
+  self_declared: true
+  statement: >-
+    "The REST API is in beta! Please take note that the REST API is still under heavy
+    development and subject to regular changes. These changes could result in breaking changes
+    for developers. We will try our best to notify the community of any breaking changes and
+    help ensure a smooth transition if necessary."
+  source: https://support.kissmetrics.io/reference/overview
+  note: >-
+    Best-effort notification is the only commitment published. There is no notice period, no
+    channel named, and no subscription to that notification.
+deprecation_policy:
+  published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No deprecation policy page, and no operation in the published spec sets `deprecated: true` —
+    every one of the 17 per-operation documents Kissmetrics publishes carries
+    `"deprecated": false`. The provider does deprecate things in practice: its own
+    example-people-search repository is labelled "Deprecated" and the entire previous
+    documentation portal at oldsupport.kissmetrics.com no longer resolves (probed 2026-08-13,
+    connection failure), taking the Data Out API reference with it. That happened without a
+    published policy or a sunset header.
+status_page:
+  published: false
+  url: null
+  note: >-
+    No status.kissmetrics.io, no /status page (probed 2026-08-13, HTTP 404 on
+    https://www.kissmetrics.io/status), and no third-party status host is linked from the site
+    or the docs. Incident communication is by email — the product updates page directs users to
+    help@kissmetrics.io.
+changelog:
+  dated_changelog: false
+  url: null
+  note: >-
+    No dated changelog exists. https://kissmetrics.io/updates is a forward-looking roadmap page
+    (in-progress work as of June 2026, plus items "targeting summer 2026"), not a record of
+    what shipped and when. No ChangeLog pointer is emitted.
+roadmap:
+  published: true
+  url: https://kissmetrics.io/updates
+  http_status: 200
+  items_in_progress:
+    - Faster, broader query engine — migrating reporting to a new engine
+    - Reliability under load — reworking data storage and memory handling
+    - Report progress feedback — estimated run times and queue visibility
+  items_planned:
+    - KISSmetrics v2 early access
+    - New integrations
+  note: >-
+    Kissmetrics also states it is "rebuilding KISSmetrics from the ground up" (v2), which is
+    relevant lifecycle risk for anyone integrating against v3 today.
+sla:
+  published: false
+support:
+  channel: https://support.kissmetrics.io
+  email: help@kissmetrics.io
+  privacy_email: privacy@kissmetrics.io
+retired_surfaces:
+  - name: Kissmetrics Data Out API
+    documentation: https://oldsupport.kissmetrics.com/apis/data-out.html
+    probed: '2026-08-13'
+    http_status: 000
+    note: >-
+      Host does not resolve (DNS CNAME points at kissmetrics.github.com, which no longer
+      serves). The legacy documentation portal is gone; the surface it documented cannot be
+      verified as existing and is no longer carried as an API entry in apis.yml.

@@ -1,0 +1,34 @@
+# kissmetrics Documentation
+
+> Developer documentation for integrating with the Kissmetrics Customer Engagement Automation platform. This documentation gives developers and engineers everything they need to know about the Kissmetrics API and integration methods. Learn how to send data to Kissmetrics or query your data programmatically on this site.
+
+## Guides
+- [About Kissmetrics](https://support.kissmetrics.io/docs/about-kissmetrics.md)
+- [New User Guide](https://support.kissmetrics.io/docs/setup-platform-overview-1.md)
+- [Naming and Structuring Data](https://support.kissmetrics.io/docs/naming-and-structuring-data.md)
+- [Installing Kissmetrics through GTM](https://support.kissmetrics.io/docs/installing-kissmetrics-through-google-tag-manager.md)
+- [Installing The JavaScript Library (Quickstart)](https://support.kissmetrics.io/docs/installing-the-javascript-library-quickstart.md)
+- [Tracking Page Views Using Google Tag Manager and a Single Page App](https://support.kissmetrics.io/docs/tracking-page-views-using-google-tag-manager-and-a-single-page-app.md)
+- [Advanced Click Tracking Using Google Tag Manager](https://support.kissmetrics.io/docs/advanced-click-tracking-using-google-tag-manager.md)
+- [SaaS Essentials](https://support.kissmetrics.io/docs/saas-essentials.md)
+- [SaaS Code Examples](https://support.kissmetrics.io/docs/saas-javascript-code-examples.md)
+- [Tracking Form Abandonment](https://support.kissmetrics.io/docs/tracking-form-abandonment-1.md)
+- [Tracking Videos](https://support.kissmetrics.io/docs/tracking-videos.md)
+- [Tracking Social Events](https://support.kissmetrics.io/docs/tracking-social-events.md)
+- [How to Test Kissmetrics Is Tracking By Using Your Browser's Developer Tools](https://support.kissmetrics.io/docs/how-to-test-kissmetrics-is-tracking-by-using-your-browsers-developer-tools.md)
+- [E-Commerce JavaScript Code Examples](https://support.kissmetrics.io/docs/e-commerce-javascript-code-examples.md)
+- [Appcues](https://support.kissmetrics.io/docs/appcues.md)
+- [Zapier (temporary)](https://support.kissmetrics.io/docs/zapier-temporary.md)
+- [WordPress Plugin](https://support.kissmetrics.io/docs/wordpress-plugin.md)
+- [Salesforce](https://support.kissmetrics.io/docs/salesforce.md)
+- [Shopify](https://support.kissmetrics.io/docs/shopify.md)
+- [ThriveCart](https://support.kissmetrics.io/docs/thrivecart.md): Integrating Kissmetrics with ThriveCart
+- [Import Existing Data Into Kissmetrics](https://support.kissmetrics.io/docs/import-existing-data-into-kissmetrics.md)
+- [JSON Files as an External Data Source](https://support.kissmetrics.io/docs/json-files-as-an-external-data-source-1.md)
+- [CSV Files as an External Data Source](https://support.kissmetrics.io/docs/csv-files-as-an-external-data-source-1.md)
+- [Common Cohort Report Questions](https://support.kissmetrics.io/docs/common-cohort-report-questions.md)
+- [Power Report](https://support.kissmetrics.io/docs/power-report-1.md)
+- [Data Export](https://support.kissmetrics.io/docs/data-export.md)
+
+## API Reference
+- [Track](https://support.kissmetrics.io/reference/track-main.md)

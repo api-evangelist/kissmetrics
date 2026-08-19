@@ -1,0 +1,45 @@
+generated: '2026-08-13'
+method: searched
+source: https://kissmetrics.io/product/workflows/api
+api: kissmetrics:rest-api
+limit_count: 1
+rate_limits:
+  - name: Standard REST API limit
+    scope: per-account
+    window: 1m
+    limit: 15
+    unit: requests
+    burst: null
+    applies_to: all REST Query API operations
+    plans: all
+    statement: >-
+      "API requests are rate limited to ensure platform stability. Standard limits apply to all
+      plans. 15 requests per minute. Higher limits available on request."
+    source: https://kissmetrics.io/product/workflows/api
+    method: searched
+response_headers: []
+exhaustion:
+  status_code: null
+  retry_after: false
+  note: >-
+    Kissmetrics does not document which status code it returns when the limit is exceeded, and
+    declares no 429 response on any operation in its published OpenAPI.
+plan_differences:
+  note: >-
+    The pricing page markets "Extensive API access — higher limits and the full programmatic
+    surface" on the paid Growth tier, but publishes no number for it. The only published figure
+    is the 15/minute standard limit, described as applying to all plans. Higher limits are
+    "available on request" — a sales conversation, not a documented tier.
+  source: https://kissmetrics.io/pricing
+gaps:
+  - >-
+    No rate-limit response headers of any kind. Kissmetrics publishes neither the
+    X-RateLimit-* family nor the RFC 9331 RateLimit-* family nor Retry-After, so an agent cannot
+    observe remaining quota or a reset time at runtime — it can only count its own calls
+    against a number it read in marketing copy.
+  - >-
+    No limit is published for the ingest/beacon surface at trk.kissmetrics.io.
+  - >-
+    15 requests per minute is a hard constraint on the submit-poll query model: a single query
+    consumes one call to start it plus one call per poll, so a handful of concurrent reports
+    exhausts the budget.

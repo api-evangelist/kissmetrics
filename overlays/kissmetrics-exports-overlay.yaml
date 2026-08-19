@@ -1,0 +1,59 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Kissmetrics exports
+  version: 1.0.0
+extends: openapi/kissmetrics-exports-api-openapi.yml
+x-generated: '2026-08-13'
+x-method: generated
+x-source: API Evangelist enrichment pipeline — runtime semantics harvested from the Kissmetrics documentation
+  and recorded as extensions. The original document is never mutated.
+actions:
+- target: $.info
+  description: Record that this document is an API Evangelist assembly of the per-operation OpenAPI documents
+    Kissmetrics publishes on each reference page, and that the API is self-declared beta.
+  update:
+    x-assembled-by: API Evangelist enrichment pipeline
+    x-assembled-from: https://support.kissmetrics.io/reference/ (.md twin of each endpoint page)
+    x-lifecycle-stage: beta
+    x-lifecycle-statement: Kissmetrics states the REST API is "still under heavy development and subject
+      to regular changes" that "could result in breaking changes for developers."
+- target: $.components.securitySchemes.basicAuth
+  description: Kissmetrics publishes two different Basic-auth credential forms. Record both rather than
+    choosing one.
+  update:
+    x-credential-forms:
+    - form: email:password
+      source: https://support.kissmetrics.io/reference/authorization
+    - form: 'API_KEY: (empty password)'
+      source: https://kissmetrics.io/product/workflows/api
+    x-conflict: The two published pages disagree and neither reconciles the other.
+- target: $.paths.*.*
+  description: Attach the published rate limit to every operation. Kissmetrics publishes 15 requests per
+    minute as prose on its API product page and declares no 429 response and no rate-limit headers.
+  update:
+    x-rate-limit:
+      requests: 15
+      window: 1m
+      scope: per-account
+      source: https://kissmetrics.io/product/workflows/api
+      headers: none published
+      exhaustion-status: undocumented
+- target: $.paths.*.*
+  description: Attach the published error envelope. Kissmetrics returns {status, messages[]} as application/json,
+    not RFC 9457 problem+json.
+  update:
+    x-error-envelope:
+      format: custom-json
+      rfc9457: false
+      fields:
+      - status
+      - messages
+      example: '{"status": 401, "messages": ["Unauthenticated."]}'
+      source: https://support.kissmetrics.io/reference/authorization
+- target: $.paths.*.*
+  description: Record that Kissmetrics documents no idempotency mechanism for this API.
+  update:
+    x-idempotency:
+      supported: false
+      header: null
+      note: No Idempotency-Key and no replay guidance published for the REST Query API.

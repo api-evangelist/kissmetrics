@@ -1,0 +1,108 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "rest-api",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "summary": "Products",
+        "description": "Get a list of products for the authorized user.",
+        "operationId": "fetch-products",
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "A limit on the number of objects to be returned.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"data\": [\n    {\n      \"id\": 123,\n      \"account_id\": 456,\n      \"name\": \"Your Product\",\n      \"timezone\": \"US/Pacific\"\n    }\n  ]\n}\n"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 123,
+                            "default": 0
+                          },
+                          "account_id": {
+                            "type": "integer",
+                            "example": 456,
+                            "default": 0
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Your Product"
+                          },
+                          "timezone": {
+                            "type": "string",
+                            "example": "US/Pacific"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

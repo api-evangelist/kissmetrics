@@ -1,0 +1,551 @@
+{
+  "item": [
+    {
+      "id": "eff4ac0d-f111-4274-84c7-cc102bffed93",
+      "name": "queries",
+      "description": {
+        "content": "Query endpoints: start an ad-hoc, saved-report, saved-metric, A/B test, people-search, people-count or SQL query, poll its results, and cancel it.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a983d6cf-b640-4a4d-b787-9432e77fb24f",
+          "name": "Run a Query",
+          "request": {
+            "name": "Run a Query",
+            "description": {
+              "content": "Start a query. Kissmetrics publishes one request body per query type on its own reference page, all against `POST /queries`; the accepted bodies are merged here as `oneOf`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "queries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"product_id\": \"<integer>\",\n  \"query_params\": \"<json>\",\n  \"query_type\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"order\": \"asc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6049fb67-0c6f-4956-a694-3c1a556d30a6",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "queries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_id\": \"<integer>\",\n  \"query_params\": \"<json>\",\n  \"query_type\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"order\": \"asc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"id\\\": \\\"279139f5-f0e7-4f1c-bae5-ff509489981d\\\"\\n}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "299f302b-c8c6-4aa3-b4d0-488e3f8cad62",
+              "name": "400",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "queries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"product_id\": \"<integer>\",\n  \"query_params\": \"<json>\",\n  \"query_type\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"order\": \"asc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c2c41d3-4502-43c0-a149-98e75c82208e",
+          "name": "Saved Report Query",
+          "request": {
+            "name": "Saved Report Query",
+            "description": {
+              "content": "Run the query associated with a saved report.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "queries",
+                "report"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"report_id\": \"<integer>\",\n  \"date_range\": \"<json>\",\n  \"query_type\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"order\": \"asc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "67d5aeb3-5572-4bab-8d0a-66cd86211a14",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "queries",
+                    "report"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"report_id\": \"<integer>\",\n  \"date_range\": \"<json>\",\n  \"query_type\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"order\": \"asc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"id\\\": \\\"279139f5-f0e7-4f1c-bae5-ff509489981d\\\"\\n}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8dbc1142-93ed-4fee-a9af-4dc6cdd509a3",
+          "name": "Saved Metric Query",
+          "request": {
+            "name": "Saved Metric Query",
+            "description": {
+              "content": "Run the query associated with a saved metric.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "queries",
+                "metric"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"metric_id\": \"<integer>\",\n  \"date_range\": \"<json>\",\n  \"query_type\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"order\": \"asc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0945e6ab-8012-41f6-a12b-48c6ba8e01a4",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "queries",
+                    "metric"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"metric_id\": \"<integer>\",\n  \"date_range\": \"<json>\",\n  \"query_type\": \"<string>\",\n  \"sort\": \"<string>\",\n  \"order\": \"asc\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"id\\\": \\\"279139f5-f0e7-4f1c-bae5-ff509489981d\\\"\\n}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6f222046-ec04-4a61-be16-77fbf062d8a7",
+          "name": "Query Results",
+          "request": {
+            "name": "Query Results",
+            "description": {
+              "content": "Get the status and results of a query that has been started.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "queries",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Query ID"
+                }
+              ]
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc2c175d-8aca-4e84-998d-38d568cfde4e",
+          "name": "Cancel a Query",
+          "request": {
+            "name": "Cancel a Query",
+            "description": {
+              "content": "Cancel a query that has been previously started.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "queries",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Query ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c85e7f9e-5b45-4871-9093-b44893b34cde",
+              "name": "200",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "queries",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Query ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"{\\n  \\\"id\\\": \\\"279139f5-f0e7-4f1c-bae5-ff509489981d\\\",\\n  \\\"cancelled\\\": true\\n}\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://query.kissmetrics.io/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a2da4ccd-13ac-405d-9ee8-d95d75d09006",
+    "name": "Kissmetrics REST API — queries",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Query endpoints: start an ad-hoc, saved-report, saved-metric, A/B test, people-search, people-count or SQL query, poll its results, and cancel it.\n\nAssembled verbatim from the per-operation OpenAPI 3.1.0 documents Kissmetrics publishes on each reference page of support.kissmetrics.io (the `.md` twin of every endpoint page carries a complete `# OpenAPI definition` block). Nothing was authored by API Evangelist; operations were grouped by resource and identical path+method variants merged as `oneOf`.\n\nContact Support:\n Name: Kissmetrics Support",
+      "type": "text/plain"
+    }
+  }
+}

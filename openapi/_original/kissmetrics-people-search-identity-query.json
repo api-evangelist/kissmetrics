@@ -1,0 +1,153 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "identity-search",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/queries": {
+      "post": {
+        "summary": "People Search (Identity) Query",
+        "description": "",
+        "operationId": "people-search-identity-query",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "product_id",
+                  "query_type"
+                ],
+                "properties": {
+                  "product_id": {
+                    "type": "integer",
+                    "description": "The unique identifier of the product to query.",
+                    "format": "int32"
+                  },
+                  "query_type": {
+                    "type": "string",
+                    "description": "The type of query to run, in this case it's `people_search`."
+                  },
+                  "sort": {
+                    "type": "string",
+                    "description": "The field to sort the results by."
+                  },
+                  "order": {
+                    "type": "string",
+                    "description": "The sort order if sort parameter is provided. One of `asc` or `desc`."
+                  },
+                  "query_params": {
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "The type of people search to run, in this case `identity`."
+                      },
+                      "identity": {
+                        "type": "string",
+                        "description": "The ID of the person to query."
+                      },
+                      "calculations": {
+                        "type": "string",
+                        "description": "Array of [Calculation Objects](#result-columnscalculations)",
+                        "format": "json"
+                      }
+                    },
+                    "required": [
+                      "type",
+                      "identity",
+                      "calculations"
+                    ],
+                    "type": "object"
+                  }
+                }
+              },
+              "examples": {
+                "Example People Search (Identity) Payload": {
+                  "value": {
+                    "type": "identity",
+                    "identity": "support@kissmetrics.com",
+                    "calculations": [
+                      {
+                        "type": "first_date_in_range",
+                        "subject": {
+                          "type": "property",
+                          "property": 123,
+                          "negate": false,
+                          "comparison_mode": "contains",
+                          "comparison_string": "support@kissmetrics.com",
+                          "date_range": {
+                            "date_range_id": "last_7_days"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

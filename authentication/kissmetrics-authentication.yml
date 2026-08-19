@@ -1,0 +1,17 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/kissmetrics-exports-api-openapi.yml, openapi/kissmetrics-products-api-openapi.yml,
+  openapi/kissmetrics-queries-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: HTTP Basic. Base64 of `username:password` (or of `API_KEY:` with an empty password)
+    in the Authorization header.
+  sources:
+  - openapi/kissmetrics-exports-api-openapi.yml
+  - openapi/kissmetrics-products-api-openapi.yml
+  - openapi/kissmetrics-queries-api-openapi.yml

@@ -1,0 +1,100 @@
+generated: '2026-08-13'
+method: derived
+source: mcp/kissmetrics-mcp.yml + openapi/kissmetrics-*-api-openapi.yml
+description: >-
+  Binds each Kissmetrics MCP tool to the OpenAPI operation that backs it, so a tool inherits
+  that operation's real parameters and request body as its input schema.
+surfaces:
+  openapi:
+    files:
+      - openapi/kissmetrics-products-api-openapi.yml
+      - openapi/kissmetrics-queries-api-openapi.yml
+      - openapi/kissmetrics-exports-api-openapi.yml
+    gated: false
+  graphql: null
+  mcp:
+    url: https://support.kissmetrics.io/mcp
+    gated: true
+    note: >-
+      Returns JSON-RPC -32001 "Authorization required" to anonymous tools/list, so the LIVE tool
+      set could not be enumerated. The rows below therefore bind the DERIVED candidate tools in
+      mcp/kissmetrics-mcp.yml, not tools Kissmetrics has published. Confidence is set
+      accordingly; nothing here asserts a tool exists on the live server.
+coverage:
+  rest_operations: 11
+  tools_mapped: 11
+  mcp_only: 0
+  rest_only: 0
+  live_tools_verified: 0
+crosswalk:
+  - tool: list_products
+    category: account
+    rest: [fetch-products]
+    binding: one-to-one
+    confidence: high
+    note: Derived tool; binding to the REST operation is exact.
+  - tool: list_reports
+    category: account
+    rest: [fetch-reports]
+    binding: one-to-one
+    confidence: high
+  - tool: list_events
+    category: account
+    rest: [fetch-events]
+    binding: one-to-one
+    confidence: high
+  - tool: list_properties
+    category: account
+    rest: [fetch-properties]
+    binding: one-to-one
+    confidence: high
+  - tool: run_query
+    category: query
+    rest: [run-query]
+    binding: one-to-one
+    confidence: high
+    note: >-
+      POST /queries accepts one of six published request bodies (ad-hoc, A/B test, people search
+      by group, people search by identity, people count, SQL) merged as oneOf in the spec. A
+      single tool inherits the union.
+  - tool: run_saved_report
+    category: query
+    rest: [v3queriesreport]
+    binding: one-to-one
+    confidence: high
+  - tool: run_saved_metric
+    category: query
+    rest: [saved-metric-query]
+    binding: one-to-one
+    confidence: high
+  - tool: get_query_results
+    category: query
+    rest: [v3queriesid]
+    binding: one-to-one
+    confidence: medium
+    note: >-
+      The published fragment for this operation declares parameters but no responses, so the
+      tool's OUTPUT schema cannot be inherited from the spec. Provider gap.
+  - tool: cancel_query
+    category: query
+    rest: [cancel-a-query]
+    binding: one-to-one
+    confidence: high
+  - tool: create_export
+    category: export
+    rest: [create-export]
+    binding: one-to-one
+    confidence: high
+    note: POST /exports accepts a CSV body or an S3 body, merged as oneOf.
+  - tool: get_export_status
+    category: export
+    rest: [export-status]
+    binding: one-to-one
+    confidence: high
+mcp_only: []
+rest_only: []
+notes:
+  - >-
+    The Kissmetrics tracking/ingest surface (trk.kissmetrics.io /e, /s, /a) has no OpenAPI and no
+    tool, and is deliberately excluded: it is a write-only beacon that answers 200 with a 1x1 GIF
+    to everything, which makes it unsafe to expose to an agent as a verifiable tool.

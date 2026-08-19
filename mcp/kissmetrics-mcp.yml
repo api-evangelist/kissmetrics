@@ -1,0 +1,89 @@
+generated: '2026-08-13'
+method: probed
+source: https://support.kissmetrics.io/mcp
+name: Kissmetrics Documentation MCP
+status: gated
+deployment:
+  mode: remote
+  endpoint: https://support.kissmetrics.io/mcp
+  auth: unknown
+  verified: probed
+x-evidence:
+  fetched: '2026-08-13'
+  url: https://support.kissmetrics.io/mcp
+  method: POST
+  request: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 401
+  content_type: application/json
+  body: '{"jsonrpc":"2.0","error":{"code":-32001,"message":"Authorization required"},"id":null}'
+  note: >-
+    The endpoint answers with a well-formed JSON-RPC 2.0 error object, not an HTML shell, so an
+    MCP server is genuinely mounted here. `initialize` returns the identical -32001. tools/list
+    could NOT be enumerated anonymously, so no tool schemas are recorded below as facts.
+provider_documented: false
+platform: readme.com
+honesty:
+  - >-
+    This endpoint is served by ReadMe (the platform hosting support.kissmetrics.io), on a host
+    Kissmetrics controls. Kissmetrics does not advertise it in its documentation, its llms.txt,
+    or on kissmetrics.io. It is recorded as a real, reachable MCP surface on the provider's own
+    domain, and simultaneously as one the provider has not documented.
+  - >-
+    No OAuth discovery is published: /.well-known/oauth-authorization-server and
+    /.well-known/oauth-protected-resource both 404 on support.kissmetrics.io, so an agent has
+    no machine-readable way to obtain the authorization the endpoint demands.
+other_endpoints_probed:
+  - url: https://mcp.kissmetrics.io/mcp
+    status: 000
+    note: host does not resolve
+  - url: https://ai.kissmetrics.io/mcp
+    status: 307
+    note: redirects to /login?redirectTo=%2Fmcp — session-gated app route, not an MCP transport
+  - url: https://query.kissmetrics.io/mcp
+    status: 404
+  - url: https://api.kissmetrics.io/mcp
+    status: 000
+candidate_tools:
+  method: derived
+  source: openapi/kissmetrics-products-api-openapi.yml, openapi/kissmetrics-queries-api-openapi.yml, openapi/kissmetrics-exports-api-openapi.yml
+  status: candidate
+  note: >-
+    NOT a published tool list. Derived from the operations in the Kissmetrics REST Query API so
+    the crosswalk has something to bind against. Kissmetrics ships no MCP server for the REST
+    API; these are what one would expose.
+  tools:
+    - name: list_products
+      rest: [fetch-products]
+      description: List the products in the authorized Kissmetrics account.
+    - name: list_reports
+      rest: [fetch-reports]
+      description: List the reports defined for a product.
+    - name: list_events
+      rest: [fetch-events]
+      description: List the events tracked for a product.
+    - name: list_properties
+      rest: [fetch-properties]
+      description: List the person/event properties defined for a product.
+    - name: run_query
+      rest: [run-query]
+      description: >-
+        Start an ad-hoc query — cohort, funnel, ab_test, people_search, people_count, activity,
+        metric, metric_over_time or sql — and get back a query id.
+    - name: run_saved_report
+      rest: [v3queriesreport]
+      description: Run a saved report and get back a query id.
+    - name: run_saved_metric
+      rest: [saved-metric-query]
+      description: Run a saved metric and get back a query id.
+    - name: get_query_results
+      rest: [v3queriesid]
+      description: Poll a started query for status and results.
+    - name: cancel_query
+      rest: [cancel-a-query]
+      description: Cancel a running query.
+    - name: create_export
+      rest: [create-export]
+      description: Export a completed query result to CSV or to an S3 bucket.
+    - name: get_export_status
+      rest: [export-status]
+      description: Check the status of an export and retrieve the download link.

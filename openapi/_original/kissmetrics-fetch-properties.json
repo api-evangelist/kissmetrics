@@ -1,0 +1,138 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "rest-api",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/products/{product_id}/properties": {
+      "get": {
+        "summary": "Properties",
+        "description": "Get a list of properties for a given product for the authorized user.",
+        "operationId": "fetch-properties",
+        "parameters": [
+          {
+            "name": "product_id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "An offset into the list of returned items. The API will return the requested number of items start at that offset.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "A limit on the number of objects to be returned.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"events\": [\n    {\n      \"id\": 6789,\n      \"product_id\": 12345,\n      \"name\": \"Visited site\",\n      \"visible\": true,\n      \"total\": 29,\n      \"first_used_at\": \"1970-01-01T00:00:00Z\",\n      \"last_used_at\": \"1970-01-01T00:00:00Z\",\n      \"first_sent_at\": \"1970-01-01T00:00:00Z\",\n      \"last_sent_at\": \"1970-01-01T00:00:00Z\"\n    }\n  ]\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "events": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "example": 6789,
+                            "default": 0
+                          },
+                          "product_id": {
+                            "type": "integer",
+                            "example": 12345,
+                            "default": 0
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "Visited site"
+                          },
+                          "visible": {
+                            "type": "boolean",
+                            "example": true,
+                            "default": true
+                          },
+                          "total": {
+                            "type": "integer",
+                            "example": 29,
+                            "default": 0
+                          },
+                          "first_used_at": {
+                            "type": "string",
+                            "example": "1970-01-01T00:00:00Z"
+                          },
+                          "last_used_at": {
+                            "type": "string",
+                            "example": "1970-01-01T00:00:00Z"
+                          },
+                          "first_sent_at": {
+                            "type": "string",
+                            "example": "1970-01-01T00:00:00Z"
+                          },
+                          "last_sent_at": {
+                            "type": "string",
+                            "example": "1970-01-01T00:00:00Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

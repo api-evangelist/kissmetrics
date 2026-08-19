@@ -1,0 +1,85 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  https://support.kissmetrics.io/reference/authorization (verbatim error bodies) +
+  openapi/kissmetrics-*-api-openapi.yml (declared 4xx responses)
+api: kissmetrics:rest-api
+format: custom-json
+rfc9457: false
+media_type: application/json
+envelope:
+  description: >-
+    Kissmetrics returns a flat JSON object with an integer `status` mirroring the HTTP status
+    and a `messages` array of human-readable strings. There is no machine-readable error code,
+    no `type` URI, and no per-field validation detail. RFC 9457 problem+json is not used.
+  fields:
+    - name: status
+      type: integer
+      description: Repeats the HTTP status code.
+    - name: messages
+      type: array
+      items: string
+      description: One or more human-readable messages. Free text, not a stable identifier.
+  example: |-
+    {
+      "status": 401,
+      "messages": [
+        "Unauthenticated."
+      ]
+    }
+problem_types:
+  - status: 401
+    title: Unauthenticated
+    message: Unauthenticated.
+    cause: >-
+      The Authorization header was omitted, or the supplied Basic credentials were invalid.
+    remediation: >-
+      Send `Authorization: Basic <base64>`. The reference documents base64 of
+      `email:password`; the API product page documents base64 of `API_KEY:` with an empty
+      password. Both are published by Kissmetrics.
+    source: https://support.kissmetrics.io/reference/authorization
+    method: searched
+  - status: 403
+    title: Not authorized
+    message: You are not authorized to access this page.
+    cause: >-
+      Credentials were valid but the authenticated principal may not take the requested action
+      on the requested resource.
+    remediation: >-
+      Confirm the account has access to the product_id / report / metric being addressed.
+    source: https://support.kissmetrics.io/reference/authorization
+    method: searched
+  - status: 400
+    title: Bad request
+    message: null
+    cause: >-
+      Declared on the query and export operations. Kissmetrics publishes the 400 response with
+      an EMPTY schema (`{"type": "object", "properties": {}}`) and an empty example, so the body
+      shape on a validation failure is undocumented.
+    remediation: >-
+      Validate `product_id`, `query_type` (one of people_search, cohort, ab_test, funnel,
+      metric, metric_over_time, people_count, activity, sql) and the `query_params` object
+      against the reference before retrying.
+    declared_on:
+      - run-query
+      - create-export
+      - export-status
+    source: openapi/kissmetrics-queries-api-openapi.yml
+    method: derived
+gaps:
+  - >-
+    No 404, 429 or 5xx response is declared anywhere in the published spec. The API is
+    rate limited to 15 requests per minute (see rate-limits/) but the status code returned on
+    exhaustion is not documented on any page, so a client cannot be written to handle it
+    correctly from the documentation alone.
+  - >-
+    `messages` is free prose. There is no stable error code an agent can branch on; retry logic
+    has to key off the HTTP status alone.
+  - >-
+    GET /queries/{id} (`v3queriesid`) declares no responses at all — neither success nor error.
+ingest_surface:
+  note: >-
+    The tracking host trk.kissmetrics.io has no error catalog by design: it answers 200 OK with
+    a 1x1 GIF to every request, valid or not. Failures there are silent and undetectable from
+    the response.
+  source: https://support.kissmetrics.io/reference/api-specifications-1

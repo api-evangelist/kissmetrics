@@ -1,0 +1,143 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ab-test-ad-hoc-example",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/queries": {
+      "post": {
+        "summary": "A/B Test Queries",
+        "description": "",
+        "operationId": "ab-test-queries",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "product_id",
+                  "query_type"
+                ],
+                "properties": {
+                  "product_id": {
+                    "type": "string",
+                    "description": "The unique identifier of the product to query."
+                  },
+                  "query_type": {
+                    "type": "string",
+                    "description": "The type of query to run, in this case it's `ab_test`."
+                  },
+                  "sort": {
+                    "type": "string",
+                    "description": "The field to sort the results by."
+                  },
+                  "order": {
+                    "type": "string",
+                    "description": "The sort order if sort parameter is provided. One of `asc` or `desc`."
+                  },
+                  "query_params": {
+                    "properties": {
+                      "variation_property_index": {
+                        "type": "integer",
+                        "description": "The index of the property that contains the variation of the experiment.",
+                        "format": "int32"
+                      },
+                      "conversion_event_index": {
+                        "type": "integer",
+                        "description": "The index of the conversion event that should be compared between variations.",
+                        "format": "int32"
+                      },
+                      "start_date": {
+                        "type": "string",
+                        "description": "The start date of the experiment.",
+                        "format": "date-time"
+                      },
+                      "end_date": {
+                        "type": "string",
+                        "description": "The end date of the experiment.",
+                        "format": "date-time"
+                      },
+                      "bucket_size": {
+                        "type": "integer",
+                        "description": "The time range for each bucket - measured in seconds. (E.G.; `604800`)",
+                        "format": "int32"
+                      }
+                    },
+                    "required": [
+                      "variation_property_index",
+                      "conversion_event_index",
+                      "start_date",
+                      "bucket_size"
+                    ],
+                    "type": "object",
+                    "description": "The A/B Test query parameters."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

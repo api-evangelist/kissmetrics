@@ -1,0 +1,101 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "rest-api",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/queries/report": {
+      "post": {
+        "summary": "Saved Report Query",
+        "description": "Run the query associated with a saved report.",
+        "operationId": "v3queriesreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "report_id"
+                ],
+                "properties": {
+                  "report_id": {
+                    "type": "integer",
+                    "description": "The unique identifier of the report to run",
+                    "format": "int32"
+                  },
+                  "date_range": {
+                    "type": "string",
+                    "description": "The timeframe for which to run the query. *The `date_range` parameter is required for all query types except `people_search`. See [Date Range Object](#modern-periods) for examples. IMPORTANT - COPY THE BELOW OBJECT INTO THE FIELD AND ADD the date_range parameter. { \"type\": \"preset\", \"preset\": \"this_month_to_date\" }",
+                    "format": "json"
+                  },
+                  "query_type": {
+                    "type": "string",
+                    "description": "The type of query to run. *Default query type is pulled from the given report. See [Query Types)](#query-types) for a list."
+                  },
+                  "sort": {
+                    "type": "string",
+                    "description": "The field to sort the results by."
+                  },
+                  "order": {
+                    "type": "string",
+                    "description": "The sort order if `sort` parameter is provided. One of `asc` or `desc`.",
+                    "default": "asc"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"id\": \"279139f5-f0e7-4f1c-bae5-ff509489981d\"\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "279139f5-f0e7-4f1c-bae5-ff509489981d"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

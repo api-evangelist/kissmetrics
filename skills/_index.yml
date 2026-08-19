@@ -1,0 +1,38 @@
+generated: '2026-08-13'
+method: searched
+source: https://github.com/kissmetrics/km-installer
+description: >-
+  Agent Skills for Kissmetrics. The one skill listed here is published by Kissmetrics
+  itself and saved verbatim — API Evangelist did not author it. Kissmetrics ships it
+  from its own GitHub organization as a Claude Code skill that installs the hosted
+  KISSmetrics JavaScript tracking snippet into any codebase.
+skills:
+  - file: kissmetrics-km-installer.md
+    name: km-installer
+    title: Install KISSmetrics
+    method: searched
+    provider_published: true
+    source: https://raw.githubusercontent.com/kissmetrics/km-installer/main/skills/SKILL.md
+    repo: https://github.com/kissmetrics/km-installer
+    fetched: '2026-08-13'
+    http_status: 200
+    api: kissmetrics:tracking-api
+    surface: javascript-snippet
+    description: >-
+      Detects the project's stack, inserts the hosted `_kmq` KISSmetrics snippet
+      (`//i.kissmetrics.io/i.js` + `//scripts.kissmetrics.io/<key>.2.js`) into the correct
+      layout/head file with the product key pre-filled, optionally wires custom `_kmq.push`
+      events, opens a `feat/km_snippet` review branch, and verifies the compiled SDK returns
+      HTTP 200 before declaring success.
+    operations:
+      - _kmq.push(['record', ...])
+      - _kmq.push(['identify', ...])
+      - _kmq.push(['set', ...])
+    note: >-
+      This skill covers event INGEST via the browser library, not the REST Query API. No
+      provider-published skill exists for the query.kissmetrics.io/v3 REST surface, and none
+      was authored here.
+notes:
+  - >-
+    Kissmetrics also publishes no AGENTS.md and no /.well-known agent card; the only
+    provider-authored agent artifact found is the km-installer skill above.

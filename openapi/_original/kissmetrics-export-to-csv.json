@@ -1,0 +1,92 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "export-to-csv",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "https://query.kissmetrics.io/v3"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "sec0": {
+        "type": "http",
+        "scheme": "basic"
+      }
+    }
+  },
+  "security": [
+    {
+      "sec0": []
+    }
+  ],
+  "paths": {
+    "/exports": {
+      "post": {
+        "summary": "Export to CSV",
+        "description": "The results of both ad-hoc queries and saved report queries can be exported to CSV. The Kissmetrics Query API requires the type of export (CSV), the ID of the query to export (obtained from running an ad-hoc report or running a saved report), and a name parameter to assign to the CSV file.\n\nThe response for this endpoint provides an export ID, which can be used to check the status of the export (unstarted/started/completed/error/cancelled) or to obtain the link to the CSV.",
+        "operationId": "export-to-csv",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "export_type",
+                  "query_id"
+                ],
+                "properties": {
+                  "export_type": {
+                    "type": "string",
+                    "description": "`csv`",
+                    "default": "csv"
+                  },
+                  "query_id": {
+                    "type": "string"
+                  },
+                  "options": {
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ],
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "text/plain": {
+                "examples": {
+                  "Result": {
+                    "value": ""
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "x-readme": {
+    "headers": [],
+    "explorer-enabled": true,
+    "proxy-enabled": true
+  },
+  "x-readme-fauxas": true
+}

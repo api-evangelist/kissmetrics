@@ -1,0 +1,142 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  openapi/kissmetrics-products-api-openapi.yml, openapi/kissmetrics-queries-api-openapi.yml,
+  openapi/kissmetrics-exports-api-openapi.yml, plus
+  https://support.kissmetrics.io/reference/query-types and
+  https://support.kissmetrics.io/reference/api-specifications-1
+api: kissmetrics:rest-api
+description: >-
+  Entity graph derived from the id-reference fields in the published Kissmetrics OpenAPI. There
+  are no `components.schemas` and therefore no `$ref` edges — every schema in the published spec
+  is inline — so relationships below are derived from id fields and path structure, which is the
+  only evidence available.
+entities:
+  - name: Product
+    id_field: id
+    id_type: integer
+    example: 12345
+    path: /products
+    description: >-
+      A tracked property/app. The top of the hierarchy — every other account-level resource is
+      addressed under a product_id.
+    fields:
+      - {name: id, type: integer}
+      - {name: name, type: string}
+    source_operation: fetch-products
+  - name: Report
+    id_field: id
+    id_type: integer
+    example: 6789
+    path: /products/{product_id}/reports
+    description: A saved report definition belonging to a product.
+    fields:
+      - {name: id, type: integer}
+      - {name: product_id, type: integer, references: Product}
+      - {name: name, type: string}
+      - {name: report_type, type: string, example: funnel}
+    source_operation: fetch-reports
+  - name: Event
+    path: /products/{product_id}/events
+    description: An event name tracked within a product.
+    source_operation: fetch-events
+  - name: Property
+    path: /products/{product_id}/properties
+    description: A person or event property defined within a product.
+    source_operation: fetch-properties
+  - name: Query
+    id_field: id
+    id_type: string
+    id_format: uuid
+    example: 279139f5-f0e7-4f1c-bae5-ff509489981d
+    path: /queries
+    description: >-
+      An asynchronous execution. Created by POST /queries (ad-hoc, A/B test, people search,
+      people count, SQL), POST /queries/report (from a saved Report) or POST /queries/metric
+      (from a saved Metric). Polled at GET /queries/{id}; cancelled at DELETE /queries/{id}.
+    fields:
+      - {name: id, type: string}
+      - {name: product_id, type: integer, references: Product}
+      - {name: query_type, type: string}
+      - {name: query_params, type: object}
+    query_types: [people_search, cohort, ab_test, funnel, metric, metric_over_time, people_count, activity, sql]
+    source_operation: run-query
+  - name: Export
+    id_field: export_id
+    id_type: string
+    path: /exports
+    description: >-
+      A materialization of a completed Query to CSV or to a customer S3 bucket. States:
+      unstarted, started, completed, error, cancelled.
+    fields:
+      - {name: export_type, type: string, enum: [csv, s3]}
+      - {name: query_id, type: string, references: Query}
+      - {name: options, type: object}
+    source_operation: create-export
+  - name: Person
+    id_field: _p
+    id_type: string
+    max_length: 255
+    description: >-
+      The identity an event is attributed to. Not addressable through the REST API as a resource
+      — it is written on the ingest surface (`_p` on trk.kissmetrics.io) and read only as query
+      results from a people_search or people_count query. Two identities are merged with the
+      irreversible alias call (/a).
+    source: https://support.kissmetrics.io/reference/api-specifications-1
+relationships:
+  - from: Product
+    to: Report
+    type: has_many
+    via: product_id
+    evidence: path /products/{product_id}/reports and report.product_id
+  - from: Product
+    to: Event
+    type: has_many
+    via: product_id
+    evidence: path /products/{product_id}/events
+  - from: Product
+    to: Property
+    type: has_many
+    via: product_id
+    evidence: path /products/{product_id}/properties
+  - from: Query
+    to: Product
+    type: belongs_to
+    via: product_id
+    evidence: required request-body field product_id on every query operation
+  - from: Query
+    to: Report
+    type: belongs_to
+    via: report id
+    evidence: POST /queries/report runs a saved report
+    optional: true
+  - from: Export
+    to: Query
+    type: belongs_to
+    via: query_id
+    evidence: required request-body field query_id on POST /exports
+  - from: Person
+    to: Event
+    type: has_many
+    via: _p
+    evidence: ingest contract — every event carries the person identity in `_p`
+  - from: Person
+    to: Person
+    type: alias
+    via: '/a (_p, _n)'
+    evidence: >-
+      The alias endpoint merges two identities into one person; documented as not reversible.
+id_conventions:
+  - {entity: Product, form: integer}
+  - {entity: Report, form: integer}
+  - {entity: Query, form: UUID v4 string}
+  - {entity: Person, form: caller-supplied string, max 255 characters}
+  - {entity: product_key, form: ~40-character lowercase hex, used as `_k` / `_kmk` on the ingest surface}
+gaps:
+  - >-
+    The published spec defines no reusable components.schemas, so Product, Report and Query are
+    re-declared inline on every operation that returns them. There is no single canonical schema
+    for any entity.
+  - >-
+    GET /queries/{id} publishes no response schema at all, so the shape of a query RESULT — the
+    payload the whole API exists to deliver — is undocumented in the machine-readable contract.
