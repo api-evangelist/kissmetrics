@@ -12,6 +12,18 @@ description: >-
   beacon at trk.kissmetrics.io for getting events in, alongside first-party Ruby, PHP, Python,
   iOS and Android libraries and a hosted JavaScript snippet.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: public
   onboarding: self-service
