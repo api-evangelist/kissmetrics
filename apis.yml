@@ -41,6 +41,9 @@ accessModel:
     Free workspace to 100,000 events/month with no card, and Kissmetrics states the entire CLI
     and API are free with no paywall. Paid tiers start at $99/month.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/kissmetrics.png
+x-docs-platform: readme
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-10-03
 tags:
   - Analytics
   - Product Analytics
@@ -148,6 +151,9 @@ apis:
         url: packages/kissmetrics-packages.yml
 
 common:
+  - type: CapabilityMap
+    url: capabilities/kissmetrics-capability-edges.yml
+    name: Kissmetrics Business Capability Map
   - type: AgenticAccess
     url: agentic-access/kissmetrics-agentic-access.yml
   - type: Authentication
