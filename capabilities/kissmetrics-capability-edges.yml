@@ -1,0 +1,27 @@
+slug: kissmetrics
+provider: Kissmetrics
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Queries
+  spec_file: kissmetrics-queries-api-openapi.yml
+  capability_id: BC-4280
+  capability_id_l1: BC-4280
+  capability_name: Product Telemetry & Experimentation Management
+  confidence: 0.8
+  evidence: POST /queries ab-test-queries 'A/B Test Queries'; POST /queries/metric 'Saved Metric Query';
+    POST /queries/report 'Saved Report Query' — vendor 'surfacing funnels, cohorts, retention, paths,
+    revenue and A/B test reports'
+  reason: The operations run analytical queries over person-level product usage events and A/B test reports,
+    which is product telemetry/experimentation analysis. L2 left null because the surface spans both usage
+    analytics (metrics, reports) and A/B test querying, so no single sub-capability is clearly named.
