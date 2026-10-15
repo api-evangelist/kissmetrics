@@ -49,10 +49,28 @@ edges:
       - event
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/kissmetrics/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Kissmetrics
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
 method: searched
 checked:
 - https://docs.mparticle.com/integrations/kissmetrics/event/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/kissmetrics
+- wordpress/integrations/wordpress-integration-edges.yml
 source:
 - https://docs.mparticle.com/integrations/kissmetrics/event/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/kissmetrics
