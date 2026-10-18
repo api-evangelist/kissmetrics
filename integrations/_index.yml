@@ -68,7 +68,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: kissmetrics-fivetran
   label: Fivetran
@@ -94,5 +94,5 @@
     - connectors/applications/kissmetrics
     vendor_link: https://www.kissmetrics.io/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
