@@ -122,13 +122,59 @@ edges:
     builder: Fivetran
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: RubyGems
+  partner: rubygems
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Ruby)
+  evidence: https://rubygems.org/gems/km
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: km
+      version: 1.3.0
+      released: '2020-06-17'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/km
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    - name: kmts
+      version: 3.1.0
+      released: '2020-06-17'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/kmts
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 method: searched
 checked:
+- https://api.nuget.org/v3
 - https://connectors.airbyte.com/files/registries/v0/cloud_registry.json
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
+- https://crates.io/api/v1
 - https://docs.mparticle.com/integrations/kissmetrics/event/
 - https://fivetran.com/docs-sitemap.xml
 - https://fivetran.com/docs/connectors/partner-built-program
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/kissmetrics
 - wordpress/integrations/wordpress-integration-edges.yml
 source:

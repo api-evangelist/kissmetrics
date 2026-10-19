@@ -96,3 +96,43 @@
     builder: Fivetran
   status: not-a-workflow
   arazzo: null
+- slug: kissmetrics-rubygems
+  label: RubyGems
+  partner: rubygems
+  partner_name: RubyGems
+  category: official SDK (Ruby)
+  type: register
+  channel: package-registry
+  evidence: https://rubygems.org/gems/km
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: km
+      version: 1.3.0
+      released: '2020-06-17'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/km
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    - name: kmts
+      version: 3.1.0
+      released: '2020-06-17'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/kmts
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
