@@ -1,5 +1,61 @@
 generated: '2026-10-14'
 edges:
+- partner_name: WordPress (own)
+  partner: wordpress
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://wordpress.org/plugins/kissmetrics/
+  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
+  apps:
+  - Kissmetrics
+  listing_count: 1
+  detected: '2026-10-15'
+  detected_by: mirror-platform-listings.py
+  category: WordPress plugin
+- partner_name: RubyGems
+  partner: rubygems
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Ruby)
+  evidence: https://rubygems.org/gems/km
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: km
+      version: 1.3.0
+      released: '2020-06-17'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/km
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    - name: kmts
+      version: 3.1.0
+      released: '2020-06-17'
+      released_field: version_created_at
+      lapsed: true
+      page: https://rubygems.org/gems/kmts
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 - partner_name: Twilio Segment
   partner: segment
   partner_match: aggregator
@@ -49,23 +105,6 @@ edges:
       - event
   detected_by: sweep-cdp.py
   first_seen: '2026-10-14'
-- partner_name: WordPress (own)
-  partner: wordpress
-  partner_match: mirror
-  mirror_match: domain
-  type: marketplace
-  relationship: platform-app
-  direction: third-party
-  channel: partner-built
-  marketplace: own
-  evidence: https://wordpress.org/plugins/kissmetrics/
-  mirror_of: wordpress/integrations/wordpress-integration-edges.yml
-  apps:
-  - Kissmetrics
-  listing_count: 1
-  detected: '2026-10-15'
-  detected_by: mirror-platform-listings.py
-  category: WordPress plugin
 - partner_name: Airbyte
   partner: airbyte
   partner_match: aggregator
@@ -122,45 +161,38 @@ edges:
     builder: Fivetran
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
-- partner_name: RubyGems
-  partner: rubygems
+- partner_name: Agent Skills (own GitHub org)
+  partner: null
   partner_match: register
   type: register
   direction: provider-built
-  category: official SDK (Ruby)
-  evidence: https://rubygems.org/gems/km
-  channel: package-registry
-  relationship: distribution-channel
+  category: Agent Skills package
+  evidence: https://github.com/kissmetrics/km-installer
+  channel: provider-built
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: own-repo
+  degree: skill-repo
+  report_only: true
+  agent_skills:
+    org: kissmetrics
+    current: true
+    repos:
+    - repo: kissmetrics/km-installer
+      archived: false
+      lapsed: false
+      pushed: '2026-06-16'
   contract_reference:
-    register: RubyGems (public registry JSON)
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
     spec_file: null
-    language: Ruby
-    packages:
-    - name: km
-      version: 1.3.0
-      released: '2020-06-17'
-      released_field: version_created_at
-      lapsed: true
-      page: https://rubygems.org/gems/km
-      repo_leg: github-org:kissmetrics
-      publisher_leg: org:kissmetrics
-      matched_by: github-org
-    - name: kmts
-      version: 3.1.0
-      released: '2020-06-17'
-      released_field: version_created_at
-      lapsed: true
-      page: https://rubygems.org/gems/kmts
-      repo_leg: github-org:kissmetrics
-      publisher_leg: org:kissmetrics
-      matched_by: github-org
-    current: false
-    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
-      24 months'
-    detected_by: sweep-official-sdks.py
-    detected: '2026-10-18'
-  detected_by: sweep-official-sdks.py
-  first_seen: '2026-10-18'
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: kissmetrics
+    matched_by: org-profile-domain:kissmetrics.io
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
 method: searched
 checked:
 - https://api.nuget.org/v3
@@ -177,6 +209,12 @@ checked:
 - https://rubygems.org/api/v1
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/kissmetrics
 - wordpress/integrations/wordpress-integration-edges.yml
+- https://api.github.com
+- https://claude-plugins.dev/sitemap.xml
+- https://github.com/VoltAgent/awesome-agent-skills
+- https://officialskills.sh/sitemap.xml
+- https://skillsmp.com/sitemap.xml
+- https://www.skills.sh/sitemap.xml
 source:
 - https://docs.mparticle.com/integrations/kissmetrics/event/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/kissmetrics
