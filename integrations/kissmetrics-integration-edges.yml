@@ -193,6 +193,45 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-agent-skills.py
   first_seen: '2026-10-20'
+- partner_name: Packagist
+  partner: packagist
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (PHP)
+  evidence: https://packagist.org/packages/kissmetrics/kissmetrics
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Packagist (public registry JSON)
+    spec_file: null
+    language: PHP
+    packages:
+    - name: kissmetrics/kissmetrics
+      version: v1.0.0
+      released: '2013-05-22'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/kissmetrics/kissmetrics
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    - name: kissmetrics/kissmetrics-php
+      version: 0.4.2
+      released: '2023-12-14'
+      released_field: time
+      lapsed: true
+      page: https://packagist.org/packages/kissmetrics/kissmetrics-php
+      repo_leg: github-org:kissmetrics
+      publisher_leg: org:kissmetrics
+      matched_by: github-org
+    current: false
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-php-dart-elixir-package-registries.py
+    detected: '2026-10-22'
+  detected_by: sweep-php-dart-elixir-package-registries.py
+  first_seen: '2026-10-22'
 method: searched
 checked:
 - https://api.nuget.org/v3
@@ -215,6 +254,9 @@ checked:
 - https://officialskills.sh/sitemap.xml
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
+- https://hex.pm/api
+- https://packagist.org/packages
+- https://pub.dev/api
 source:
 - https://docs.mparticle.com/integrations/kissmetrics/event/
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/kissmetrics
