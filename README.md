@@ -1,4 +1,4 @@
-# Kissmetrics (kissmetrics)
+# Kissmetrics
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,4 +64,137 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-API and integration profile for Kissmetrics.
+Kissmetrics is a product and behavioral analytics platform that tracks individual people across web and mobile rather than sessions, resolving every event to a persistent identity and surfacing funnels, cohorts, retention, paths, revenue and A/B test reports against that person-level history. Product, marketing and growth teams use it to understand user journeys and pinpoint conversion drop-off, and it now markets an LLM Acquisition report that measures human traffic arriving from AI assistants. Two programmable surfaces are published: a Basic-auth REST Query API at query.kissmetrics.io/v3 for getting data out — account metadata, asynchronous ad-hoc and saved queries, SQL, and CSV/S3 exports — and a query-string tracking beacon at trk.kissmetrics.io for getting events in, alongside first-party Ruby, PHP, Python, iOS and Android libraries and a hosted JavaScript snippet.
+
+**Areas:** Analytics · Product Analytics · Behavioral Analytics · Marketing Analytics · Customer Analytics · Event Tracking · Funnels · Cohorts · Retention · Attribution · Data Export
+
+## Kissmetrics on APIs.io
+
+Everything profiled for Kissmetrics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/kissmetrics/](https://apis.io/providers/kissmetrics/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Kissmetrics REST API](https://apis.io/apis/kissmetrics/rest-api/) — REST API for programmatic access to Kissmetrics reports, segments, events, properties and account metadata. Queries are asynchronous: a POST to /queries,…
+- [Kissmetrics Tracking API (Beacon)](https://apis.io/apis/kissmetrics/tracking-api/) — Event ingest surface. Three query-string endpoints record an event (/e), set person properties (/s) and irreversibly alias two identities to one person…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Kissmetrics Documentation MCP](https://apis.io/servers/kissmetrics/kissmetrics-documentation-mcp/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Kissmetrics Agentic Access](https://apis.io/agentic-access/kissmetrics/kissmetrics-agentic-access/)
+
+#### Collections (3)
+
+Postman and Open Collection request collections.
+
+- [Kissmetrics REST API — exports](https://apis.io/collections/kissmetrics/open-kissmetrics-exports-api/)
+- [Kissmetrics REST API — products](https://apis.io/collections/kissmetrics/open-kissmetrics-products-api/)
+- [Kissmetrics REST API — queries](https://apis.io/collections/kissmetrics/open-kissmetrics-queries-api/)
+
+#### Overlays (3)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Kissmetrics Exports Overlay](https://apis.io/overlays/kissmetrics/kissmetrics-exports-overlay/)
+- [Kissmetrics Products Overlay](https://apis.io/overlays/kissmetrics/kissmetrics-products-overlay/)
+- [Kissmetrics Queries Overlay](https://apis.io/overlays/kissmetrics/kissmetrics-queries-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Kissmetrics Authentication](https://apis.io/security/kissmetrics/kissmetrics-authentication/)
+- [Kissmetrics Domain Security](https://apis.io/security/kissmetrics/kissmetrics-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Kissmetrics Plans Pricing](https://apis.io/plans/kissmetrics/kissmetrics-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Kissmetrics Rate Limits](https://apis.io/rate-limits/kissmetrics/kissmetrics-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.kissmetrics.io)
+- [Documentation](https://support.kissmetrics.io/docs)
+- [Getting started](https://support.kissmetrics.io/docs/installing-the-javascript-library-quickstart)
+- [API reference](https://support.kissmetrics.io/reference)
+- [Pricing](https://www.kissmetrics.io/pricing)
+- [Sign up](https://ai.kissmetrics.io/get-started)
+- [Support](https://support.kissmetrics.io)
+- [Blog](https://www.kissmetrics.io/blog)
+- [Terms of service](https://www.kissmetrics.io/terms)
+- [Privacy policy](https://www.kissmetrics.io/privacy)
+- [GitHub](https://github.com/kissmetrics)
+
+## API Evangelist rating
+
+**Kin Score 51.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 51.7 |
+| Contract governance | 4.5 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 53.6 |
+| Access clarity | 76.3 |
+
+**Agent readiness 44.8** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/kissmetrics/](https://apis.io/providers/kissmetrics/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Kissmetrics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/kissmetrics/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
